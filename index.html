@@ -3,74 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>GTAA Dashboard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #0f1c1c;
+            color: #e0f7e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #98ff98;
+        }
+        .box {
+            background-color: #143c3c;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(0, 255, 150, 0.2);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #355e5e;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #1f4444;
+            color: #98ff98;
+        }
+        td {
+            background-color: #224b4b;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📊 GTAA Dashboard</h1>
+    <div class="box">
+        <h2>3x GTAA Asset Allocation</h2>
+        {{ gtaa_3x|safe }}
+    </div>
 
-        <div class="box">
-            <h2>🚀 3x GTAA</h2>
-            <table>
-                <thead>
-                    <tr>
-                        {% for col in df_3x[0].keys() %}
-                            <th>{{ col }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in df_3x %}
-                        <tr>
-                            {% for cell in row.values() %}
-                                <td>{{ cell }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="box">
+        <h2>1x GTAA Asset Allocation</h2>
+        {{ gtaa_1x|safe }}
+    </div>
 
-        <div class="box">
-            <h2>🌱 1x GTAA</h2>
-            <table>
-                <thead>
-                    <tr>
-                        {% for col in df_1x[0].keys() %}
-                            <th>{{ col }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in df_1x %}
-                        <tr>
-                            {% for cell in row.values() %}
-                                <td>{{ cell }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="box">
-            <h2>📈 LETSGO</h2>
-            <table>
-                <thead>
-                    <tr><th>Asset</th><th>Jetzt</th><th>SMA</th><th>Über SMA</th></tr>
-                </thead>
-                <tbody>
-                    {% for row in letsgo %}
-                        <tr>
-                            {% for cell in row %}
-                                <td>{{ cell }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <p class="signal">Signal: <strong>{{ letsgo_result }}</strong></p>
-        </div>
+    <div class="box">
+        <h2>LETSGO</h2>
+        {{ letsgo|safe }}
+        <p><strong>Signal:</strong> {{ signal }}</p>
     </div>
 </body>
 </html>
