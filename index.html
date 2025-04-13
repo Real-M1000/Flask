@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>GTAA Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>📊 GTAA Dashboard</h1>
+
+        <div class="box">
+            <h2>🚀 3x GTAA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in df_3x[0].keys() %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in df_3x %}
+                        <tr>
+                            {% for cell in row.values() %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box">
+            <h2>🌱 1x GTAA</h2>
+            <table>
+                <thead>
+                    <tr>
+                        {% for col in df_1x[0].keys() %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in df_1x %}
+                        <tr>
+                            {% for cell in row.values() %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="box">
+            <h2>📈 LETSGO</h2>
+            <table>
+                <thead>
+                    <tr><th>Asset</th><th>Jetzt</th><th>SMA</th><th>Über SMA</th></tr>
+                </thead>
+                <tbody>
+                    {% for row in letsgo %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p class="signal">Signal: <strong>{{ letsgo_result }}</strong></p>
+        </div>
+    </div>
+</body>
+</html>
