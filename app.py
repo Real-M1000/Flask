@@ -105,9 +105,6 @@ def calculate_sma(ticker, period=175):
         return sma, current, percent
     except:
         return None, None, None
-
-@app.route('/')
-def index():
     df_3x = berechne_dataframe(tickers_3x)
     df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
     df_1x = berechne_dataframe(tickers_1x)
@@ -135,10 +132,20 @@ def index():
     if sma_gold is not None:
         data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
-    return render_template('index.html', df_3x=df_3x.to_html(classes="table table-bordered", index=False),
-                           df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
-                           df_1x=df_1x.to_html(classes="table table-bordered", index=False),
-                           data_letsgo=data_letsgo, result=result)
+@app.route("/")
+def index():
+    df_3x, df_1x, data_letsgo, result = berechne_alle_daten()
+    
+    # DataFrames in HTML-Tabellen umwandeln
+    df_3x_html = df_3x.to_html(classes="table table-bordered table-striped", index=False)
+    df_1x_html = df_1x.to_html(classes="table table-bordered table-striped", index=False)
+
+    # Gibt die gerenderten Tabellen und die anderen Daten an die HTML-Vorlage weiter
+    gtaa_3x = df_3x.to_dict(orient="records")
+    gtaa_1x = df_1x.to_dict(orient="records")
+    
+    return render_template("index.html", gtaa_3x=gtaa_3x, gtaa_1x=gtaa_1x, df_3x_html=df_3x_html, df_1x_html=df_1x_html, letsgo=data_letsgo, signal=result)
+
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=100)
