@@ -90,7 +90,7 @@ def berechne_dataframe(ticker_dict):
     df['Stellung'] = df['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
-        tickersap = "^GSPC"
+    tickersap = "^GSPC"
     tickertip = "TIP"
     tickergold = "GC=F"
     sma_sap, current_sap, percent_sap = calculate_sma(tickersap)
