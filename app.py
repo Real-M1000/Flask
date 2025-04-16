@@ -1,9 +1,14 @@
 from flask import Flask, render_template
 import yfinance as yf
 import pandas as pd
-from tabulate import tabulate
+import time
 
 app = Flask(__name__)
+
+# Cache für yfinance-Daten
+cached_data = {}
+cache_time = {}
+CACHE_TIMEOUT = 60  # Sekunden
 
 # 3x GTAA Ticker mit Name und ISIN
 tickers_3x = {
@@ -39,8 +44,13 @@ tickers_3x_unlevered = {
     "IEAC.DE": ("Investment Grade Bonds", "IE00B4L5ZG21"),
 }
 
-# Performance-Funktion mit Name + ISIN
+# Performance-Funktion mit Cache
 def performance_berechnen(ticker, info_dict):
+    now = time.time()
+    # Wenn Daten im Cache und nicht älter als 60 Sek
+    if ticker in cached_data and now - cache_time[ticker] < CACHE_TIMEOUT:
+        return cached_data[ticker]
+
     try:
         asset = yf.Ticker(ticker)
         daten_150 = asset.history(period="150d")
@@ -61,16 +71,25 @@ def performance_berechnen(ticker, info_dict):
             last = daten["Close"].tail(1).values[0]
             return ((last / first) - 1) * 100 if first > 0 else 0
 
+        # jeweils mit kleiner Pause, damit yfinance nicht dichtmacht
+        time.sleep(0.2)
         performance_9m = berechne_performance(asset.history(period="9mo"))
+        time.sleep(0.2)
         performance_6m = berechne_performance(asset.history(period="6mo"))
+        time.sleep(0.2)
         performance_3m = berechne_performance(asset.history(period="3mo"))
+        time.sleep(0.2)
         performance_1m = berechne_performance(asset.history(period="1mo"))
 
         momentum = (performance_1m + performance_3m + performance_6m + performance_9m) / 4
         sma_percent = ((letzter_schluss_150 / sma_150) - 1) * 100
 
         asset_name, isin = info_dict.get(ticker, (ticker, ""))
-        return [asset_name, isin, performance_1m, performance_3m, performance_6m, performance_9m, momentum, sma_percent]
+        daten = [asset_name, isin, performance_1m, performance_3m, performance_6m, performance_9m, momentum, sma_percent]
+
+        cached_data[ticker] = daten
+        cache_time[ticker] = now
+        return daten
 
     except:
         return None
@@ -91,9 +110,12 @@ def berechne_dataframe(ticker_dict):
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
 
-# LETSGO Berechnung
+# LETSGO Berechnung (hier auch mit Cache sinnvoll, wenn’s oft aufgerufen wird)
 def calculate_sma(ticker, period=175):
     try:
+        now = time.time()
+        if ticker in cached_data and now - cache_time[ticker] < CACHE_TIMEOUT:
+            return cached_data[ticker]
         stock = yf.Ticker(ticker)
         data = stock.history(period=f"{period}d")
         if data.empty:
@@ -102,16 +124,20 @@ def calculate_sma(ticker, period=175):
         sma = closing_prices.mean()
         current = closing_prices.iloc[-1]
         percent = ((current / sma) - 1) * 100
+        cached_data[ticker] = (sma, current, percent)
+        cache_time[ticker] = now
         return sma, current, percent
     except:
         return None, None, None
 
 @app.route('/')
 def index():
+    # alle DataFrames berechnen
     df_3x = berechne_dataframe(tickers_3x)
     df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
     df_1x = berechne_dataframe(tickers_1x)
 
+    # LETSGO Indikator
     tickersap = "^GSPC"
     tickertip = "TIP"
     tickergold = "GC=F"
@@ -135,10 +161,12 @@ def index():
     if sma_gold is not None:
         data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
-    return render_template('index.html', df_3x=df_3x.to_html(classes="table table-bordered", index=False),
+    return render_template('index.html',
+                           df_3x=df_3x.to_html(classes="table table-bordered", index=False),
                            df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
                            df_1x=df_1x.to_html(classes="table table-bordered", index=False),
-                           data_letsgo=data_letsgo, result=result)
+                           data_letsgo=data_letsgo,
+                           result=result)
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=100)
