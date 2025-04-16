@@ -76,7 +76,7 @@ def performance_berechnen(ticker, info_dict):
         return None
 
 # Hilfsfunktion zur Berechnung und Sortierung
-def berechne_alle_daten(tickers_3x, tickers_1x, tickers_3x_unlevered):
+def berechne_dataframe(ticker_dict):
     performances = [p for t in ticker_dict if (p := performance_berechnen(t, ticker_dict)) is not None]
     df = pd.DataFrame(performances, columns=["Asset", "ISIN", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
     df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]] = df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]].round(2).astype(str) + '%'
@@ -90,13 +90,28 @@ def berechne_alle_daten(tickers_3x, tickers_1x, tickers_3x_unlevered):
     df['Stellung'] = df['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
-    
-    # Berechnung der DataFrames für die verschiedenen Ticker
-    df_3x = berechne_performance(tickers_3x)
-    df_3x_unlevered = berechne_performance(tickers_3x_unlevered)
-    df_1x = berechne_ü-performance(tickers_1x)
 
-    # Berechnungen für das Letsgo-Signal
+# LETSGO Berechnung
+def calculate_sma(ticker, period=175):
+    try:
+        stock = yf.Ticker(ticker)
+        data = stock.history(period=f"{period}d")
+        if data.empty:
+            return None, None, None
+        closing_prices = data["Close"]
+        sma = closing_prices.mean()
+        current = closing_prices.iloc[-1]
+        percent = ((current / sma) - 1) * 100
+        return sma, current, percent
+    except:
+        return None, None, None
+
+@app.route('/')
+def index():
+    df_3x = berechne_dataframe(tickers_3x)
+    df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
+    df_1x = berechne_dataframe(tickers_1x)
+
     tickersap = "^GSPC"
     tickertip = "TIP"
     tickergold = "GC=F"
@@ -120,49 +135,10 @@ def berechne_alle_daten(tickers_3x, tickers_1x, tickers_3x_unlevered):
     if sma_gold is not None:
         data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
-    # Rückgabe der berechneten Werte
-    return df_3x, df_1x, data_letsgo, result
-
-    data_letsgo = []
-    if sma_sap is not None:
-        data_letsgo.append(["S&P 500", f"{current_sap:.2f}", f"{sma_sap:.2f}", f"{percent_sap:.2f}%"])
-    if sma_tip is not None:
-        data_letsgo.append(["TIPS", f"{current_tip:.2f}", f"{sma_tip:.2f}", f"{percent_tip:.2f}%"])
-    if sma_gold is not None:
-        data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
-
-# LETSGO Berechnung
-def calculate_sma(ticker, period=175):
-    try:
-        stock = yf.Ticker(ticker)
-        data = stock.history(period=f"{period}d")
-        if data.empty:
-            return None, None, None
-        closing_prices = data["Close"]
-        sma = closing_prices.mean()
-        current = closing_prices.iloc[-1]
-        percent = ((current / sma) - 1) * 100
-        return sma, current, percent
-    except:
-        return None, None, None
-    df_3x = berechne_dataframe(tickers_3x)
-    df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
-    df_1x = berechne_dataframe(tickers_1x)
-
-@app.route("/")
-def index():
-    df_3x, df_1x, data_letsgo, result = berechne_alle_daten()
-    
-    # DataFrames in HTML-Tabellen umwandeln
-    df_3x_html = df_3x.to_html(classes="table table-bordered table-striped", index=False)
-    df_1x_html = df_1x.to_html(classes="table table-bordered table-striped", index=False)
-
-    # Gibt die gerenderten Tabellen und die anderen Daten an die HTML-Vorlage weiter
-    gtaa_3x = df_3x.to_dict(orient="records")
-    gtaa_1x = df_1x.to_dict(orient="records")
-    
-    return render_template("index.html", gtaa_3x=gtaa_3x, gtaa_1x=gtaa_1x, df_3x_html=df_3x_html, df_1x_html=df_1x_html, letsgo=data_letsgo, signal=result)
-
+    return render_template('index.html', df_3x=df_3x.to_html(classes="table table-bordered", index=False),
+                           df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
+                           df_1x=df_1x.to_html(classes="table table-bordered", index=False),
+                           data_letsgo=data_letsgo, result=result)
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=100)
