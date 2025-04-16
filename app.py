@@ -90,26 +90,7 @@ def berechne_dataframe(ticker_dict):
     df['Stellung'] = df['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
-
-# LETSGO Berechnung
-def calculate_sma(ticker, period=175):
-    try:
-        stock = yf.Ticker(ticker)
-        data = stock.history(period=f"{period}d")
-        if data.empty:
-            return None, None, None
-        closing_prices = data["Close"]
-        sma = closing_prices.mean()
-        current = closing_prices.iloc[-1]
-        percent = ((current / sma) - 1) * 100
-        return sma, current, percent
-    except:
-        return None, None, None
-    df_3x = berechne_dataframe(tickers_3x)
-    df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
-    df_1x = berechne_dataframe(tickers_1x)
-
-    tickersap = "^GSPC"
+        tickersap = "^GSPC"
     tickertip = "TIP"
     tickergold = "GC=F"
     sma_sap, current_sap, percent_sap = calculate_sma(tickersap)
@@ -131,6 +112,24 @@ def calculate_sma(ticker, period=175):
         data_letsgo.append(["TIPS", f"{current_tip:.2f}", f"{sma_tip:.2f}", f"{percent_tip:.2f}%"])
     if sma_gold is not None:
         data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
+
+# LETSGO Berechnung
+def calculate_sma(ticker, period=175):
+    try:
+        stock = yf.Ticker(ticker)
+        data = stock.history(period=f"{period}d")
+        if data.empty:
+            return None, None, None
+        closing_prices = data["Close"]
+        sma = closing_prices.mean()
+        current = closing_prices.iloc[-1]
+        percent = ((current / sma) - 1) * 100
+        return sma, current, percent
+    except:
+        return None, None, None
+    df_3x = berechne_dataframe(tickers_3x)
+    df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
+    df_1x = berechne_dataframe(tickers_1x)
 
 @app.route("/")
 def index():
