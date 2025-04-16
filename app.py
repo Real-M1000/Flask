@@ -76,7 +76,7 @@ def performance_berechnen(ticker, info_dict):
         return None
 
 # Hilfsfunktion zur Berechnung und Sortierung
-def berechne_alle_daten(ticker_dict):
+def berechne_alle_daten(tickers_3x, tickers_1x, tickers_3x_unlevered):
     performances = [p for t in ticker_dict if (p := performance_berechnen(t, ticker_dict)) is not None]
     df = pd.DataFrame(performances, columns=["Asset", "ISIN", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
     df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]] = df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]].round(2).astype(str) + '%'
@@ -90,6 +90,13 @@ def berechne_alle_daten(ticker_dict):
     df['Stellung'] = df['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
+    
+    # Berechnung der DataFrames für die verschiedenen Ticker
+    df_3x = berechne_performance(tickers_3x)
+    df_3x_unlevered = berechne_performance(tickers_3x_unlevered)
+    df_1x = berechne_ü-performance(tickers_1x)
+
+    # Berechnungen für das Letsgo-Signal
     tickersap = "^GSPC"
     tickertip = "TIP"
     tickergold = "GC=F"
@@ -104,6 +111,17 @@ def berechne_alle_daten(ticker_dict):
             result = "Gold" if current_gold > sma_gold else "Cash"
         else:
             result = "Buy"
+
+    data_letsgo = []
+    if sma_sap is not None:
+        data_letsgo.append(["S&P 500", f"{current_sap:.2f}", f"{sma_sap:.2f}", f"{percent_sap:.2f}%"])
+    if sma_tip is not None:
+        data_letsgo.append(["TIPS", f"{current_tip:.2f}", f"{sma_tip:.2f}", f"{percent_tip:.2f}%"])
+    if sma_gold is not None:
+        data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
+
+    # Rückgabe der berechneten Werte
+    return df_3x, df_1x, data_letsgo, result
 
     data_letsgo = []
     if sma_sap is not None:
