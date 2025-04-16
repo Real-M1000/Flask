@@ -3,3 +3,4 @@ flask
 yfinance
 gunicorn
 qrcode
+tabulate
