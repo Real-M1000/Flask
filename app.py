@@ -30,14 +30,7 @@ tickers_1x = {
     "XEON.DE": ("Cash", "LU1955962902")
 }
 
-# 3x GTAA ungehebelt (neu)
-tickers_3x_unlevered = {
-    "XBTP.DE": ("Euro Stoxx 50 Unleveraged", "LU0839027447"),
-    "XDAX.DE": ("DAX Unleveraged", "DE000ETFL011"),
-    "XNAS.DE": ("Nasdaq 100", "LU1681047309"),
-    "GLD": ("Gold", "US78463V1070"),
-    "IEAC.DE": ("Investment Grade Bonds", "IE00B4L5ZG21"),
-}
+
 
 # Performance-Funktion mit Name + ISIN
 def performance_berechnen(ticker, info_dict):
@@ -136,7 +129,6 @@ def index():
         data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
     return render_template('index.html', df_3x=df_3x.to_html(classes="table table-bordered", index=False),
-                           df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
                            df_1x=df_1x.to_html(classes="table table-bordered", index=False),
                            data_letsgo=data_letsgo, result=result)
 
