@@ -76,7 +76,7 @@ def performance_berechnen(ticker, info_dict):
         return None
 
 # Hilfsfunktion zur Berechnung und Sortierung
-def berechne_dataframe(ticker_dict):
+def berechne_alle_daten(ticker_dict):
     performances = [p for t in ticker_dict if (p := performance_berechnen(t, ticker_dict)) is not None]
     df = pd.DataFrame(performances, columns=["Asset", "ISIN", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
     df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]] = df[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]].round(2).astype(str) + '%'
