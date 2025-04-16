@@ -1,275 +1,139 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title>GTAA und LETSGO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #333333;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .header {
-            background: linear-gradient(135deg, #004643, #005955);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .header h1 {
-            margin: 0;
-            color: white;
-            font-size: 2em;
-        }
-        .main-content {
-            flex: 1;
-            padding: 40px;
-        }
-        .footer {
-            background: linear-gradient(135deg, #004643, #005955);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 0.9em;
-        }
-        .footer p {
-            margin: 0;
-            opacity: 0.9;
-        }
-        h1, h2, h3 {
-            text-align: center;
-            color: #006d77;
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 50px;
-            color: #005f69;
-        }
-        .table-container {
-            margin: 60px auto;
-            width: 90%;
-            max-width: 1200px;
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 109, 119, 0.1);
-            border: 1px solid rgba(0, 109, 119, 0.1);
-            transition: transform 0.2s ease;
-        }
-        .table-container:hover {
-            transform: translateY(-5px);
-        }
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background-color: #ffffff;
-            color: #333333;
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 15px;
-            border: none;
-            text-align: center;
-        }
-        th {
-            background-color: #006d77;
-            color: #ffffff;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9em;
-        }
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        tr:hover {
-            background-color: #e3f2fd;
-            transition: background-color 0.3s ease;
-        }
-        .highlight {
-            text-align: center;
-            margin-top: 30px;
-        }
-        .result-pill {
-            display: inline-block;
-            padding: 12px 40px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-        }
-        .result-cash {
-            background-color: #dc3545;
-        }
-        .result-gold {
-            background: linear-gradient(135deg, #ffd700, #ffa000);
-        }
-        .result-buy {
-            background-color: #28a745;
-        }
-        td:first-child {
-            font-weight: 500;
-        }
-        .medal-1, .medal-2, .medal-3 {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 50%;
-            color: white;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        .medal-1 {
-            background: linear-gradient(135deg, #ffd700, #ffa000);
-            box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-        }
-        .medal-2 {
-            background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
-            box-shadow: 0 2px 5px rgba(192, 192, 192, 0.3);
-        }
-        .medal-3 {
-            background: linear-gradient(135deg, #CD7F32, #A05A2C);
-            box-shadow: 0 2px 5px rgba(205, 127, 50, 0.3);
-        }
-        td[data-rank="1"], td[data-rank="2"], td[data-rank="3"] {
-            font-weight: bold;
-        }
-        td[data-rank="1"] {
-            color: #ffa000;
-        }
-        td[data-rank="2"] {
-            color: #757575;
-        }
-        td[data-rank="3"] {
-            color: #A05A2C;
-        }
-        .table-container.small {
-            max-width: 600px;
-        }
-        .table-container.small table {
-            font-size: 0.9em;
-        }
-        .table-container.small .result-pill {
-            font-size: 1em;
-            padding: 8px 30px;
-        }
-        /* Farben für Zahlen */
-        td {
-            position: relative;
-        }
-        td[data-value]:not([data-value="0"]):not(:first-child) {
-            font-weight: 500;
-        }
-        td[data-value^="-"]:not(:first-child) {
-            color: #dc3545;
-        }
-        td[data-value="0"]:not(:first-child) {
-            color: #333333;
-        }
-        td[data-value]:not([data-value^="-"]):not([data-value="0"]):not(:first-child) {
-            color: #28a745;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>GTAA & LETSGO</h1>
-    </div>
+from flask import Flask, render_template
+import yfinance as yf
+import pandas as pd
 
-    <div class="main-content">
-        <div class="table-container">
-            <h2>3x GTAA</h2>
-            {{ df_3x|safe }}
-        </div>
+app = Flask(__name__)
 
-        <div class="table-container">
-            <h2>3x GTAA Unleveraged</h2>
-            {{ df_3x_unlevered|safe }}
-        </div>
+# Ticker-Daten
+# 3x GTAA Ticker
+tickers_3x = {
+    "BTC-EUR": "Bitcoin EUR",
+    "XEON.DE": "Cash",
+    "EUR=X": "USD in EUR",
+    "XNAS.DE": "Nasdaq 100",
+    "4GLD.DE": "Gold",
+    "FCRU.MI": "Öl",
+    "SXRM.DE": "Treasury Bond",
+    "LYSX.DE": "Euro Stoxx 50",
+    "AMEM.DE": "EM",
+}
 
-        <div class="table-container">
-            <h2>1x GTAA</h2>
-            {{ df_1x|safe }}
-        </div>
+# 1x GTAA Ticker
+tickers_1x = {
+    "XNAS.DE": "NASDAQ 100",
+    "AW1T.DE": "EMU Value",
+    "SPYX.DE": "EM SC",
+    "UEQU.DE": "Rohstoffe",
+    "SXRM.DE": "Treasury Bond 7-10yr",
+    "FEDF.MI": "USD Overnight Rate",
+    "4GLD.DE": "Gold",
+    "XEON.DE": "Cash"
+}
 
-        <div class="table-container small">
-            <h2>LETSGO Strategie</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Asset</th>
-                        <th>Jetzt</th>
-                        <th>SMA</th>
-                        <th>Über SMA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for asset, jetzt, sma, über_sma in data_letsgo %}
-                    <tr>
-                        <td>{{ asset }}</td>
-                        <td>{{ jetzt }}</td>
-                        <td>{{ sma }}</td>
-                        <td>{{ über_sma }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="highlight">
-                <span class="result-pill {% if result == 'Cash' %}result-cash{% elif result == 'Gold' %}result-gold{% elif result == 'Buy' %}result-buy{% endif %}">
-                    {{ result }}
-                </span>
-            </div>
-        </div>
-    </div>
+def performance_berechnen(ticker):
+    try:
+        asset = yf.Ticker(ticker)
+        daten_150 = asset.history(period="150d")
+        if daten_150.empty:
+            return None
+        schluss_preise_150 = daten_150["Close"]
+        if schluss_preise_150.empty:
+            return None
 
-    <div class="footer">
-        <p>© Jonah Beyer Studios 2025</p>
-    </div>
+        sma_150 = schluss_preise_150.mean()
+        letzter_schluss_150 = schluss_preise_150.tail(1).values[0]
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tables = document.querySelectorAll('table');
-            tables.forEach(table => {
-                const rows = table.querySelectorAll('tbody tr');
-                rows.forEach(row => {
-                    const stellungCell = row.querySelector('td:first-child');
-                    if (stellungCell) {
-                        const rang = stellungCell.textContent.trim();
-                        if (rang === '1' || rang === '2' || rang === '3') {
-                            const medal = document.createElement('span');
-                            medal.className = `medal-${rang}`;
-                            medal.textContent = rang;
-                            stellungCell.textContent = '';
-                            stellungCell.appendChild(medal);
-                            stellungCell.setAttribute('data-rank', rang);
-                        }
-                    }
-                    
-                    row.querySelectorAll('td').forEach(cell => {
-                        const text = cell.textContent.trim();
-                        if (text.endsWith('%')) {
-                            const value = parseFloat(text);
-                            cell.setAttribute('data-value', value);
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+        def berechne_performance(daten):
+            if daten.empty or len(daten) < 2:
+                return 0
+            first = daten["Close"].head(1).values[0]
+            last = daten["Close"].tail(1).values[0]
+            return ((last / first) - 1) * 100 if first > 0 else 0
+
+        performance_9m = berechne_performance(asset.history(period="9mo"))
+        performance_6m = berechne_performance(asset.history(period="6mo"))
+        performance_3m = berechne_performance(asset.history(period="3mo"))
+        performance_1m = berechne_performance(asset.history(period="1mo"))
+
+        momentum = (performance_1m + performance_3m + performance_6m + performance_9m) / 4
+        sma_percent = ((letzter_schluss_150 / sma_150) - 1) * 100
+
+        asset_name = tickers_3x.get(ticker) or tickers_1x.get(ticker) or ticker
+        return [asset_name, performance_1m, performance_3m, performance_6m, performance_9m, momentum, sma_percent]
+    except:
+        return None
+
+def calculate_sma(ticker, period=175):
+    try:
+        stock = yf.Ticker(ticker)
+        data = stock.history(period=f"{period}d")
+        if data.empty:
+            return None, None, None
+        closing_prices = data["Close"]
+        sma = closing_prices.mean()
+        current = closing_prices.iloc[-1]
+        percent = ((current / sma) - 1) * 100
+        return sma, current, percent
+    except:
+        return None, None, None
+
+def berechne_alle_daten():
+    performances_3x = [p for t in tickers_3x if (p := performance_berechnen(t)) is not None]
+    df_3x = pd.DataFrame(performances_3x, columns=["Asset", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
+    df_3x[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]] = df_3x[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]].round(2).astype(str) + '%'
+    df_3x_above_sma = df_3x[df_3x['Jetzt über SMA in %'].str.rstrip('%').astype(float) > 0].copy()
+    df_3x_above_sma['Momentum'] = df_3x_above_sma['Momentum'].str.rstrip('%').astype(float)
+    df_3x_above_sma.sort_values(by='Momentum', ascending=False, inplace=True)
+    df_3x_above_sma['Stellung'] = range(1, len(df_3x_above_sma) + 1)
+    df_3x['Stellung'] = df_3x['Asset'].apply(lambda x: df_3x_above_sma.loc[df_3x_above_sma['Asset'] == x, 'Stellung'].values[0] if x in df_3x_above_sma['Asset'].values else  "Nein" )
+    df_3x = df_3x[['Stellung'] + [col for col in df_3x.columns if col != 'Stellung']]
+
+    performances_1x = [p for t in tickers_1x if (p := performance_berechnen(t)) is not None]
+    df_1x = pd.DataFrame(performances_1x, columns=["Asset", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
+    df_1x[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]] = df_1x[["1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"]].round(2).astype(str) + '%'
+    df_1x_above_sma = df_1x[df_1x['Jetzt über SMA in %'].str.rstrip('%').astype(float) > 0].copy()
+    df_1x_above_sma['Momentum'] = df_1x_above_sma['Momentum'].str.rstrip('%').astype(float)
+    df_1x_above_sma.sort_values(by='Momentum', ascending=False, inplace=True)
+    df_1x_above_sma['Stellung'] = range(1, len(df_1x_above_sma) + 1)
+    df_1x['Stellung'] = df_1x['Asset'].apply(lambda x: df_1x_above_sma.loc[df_1x_above_sma['Asset'] == x, 'Stellung'].values[0] if x in df_1x_above_sma['Asset'].values else "Nein")
+    df_1x = df_1x[['Stellung'] + [col for col in df_1x.columns if col != 'Stellung']]
+
+    df_3x['Stellung'] = pd.to_numeric(df_3x['Stellung'], errors='coerce')
+    df_3x.sort_values(by='Stellung', inplace=True)
+    df_3x['Stellung'] = df_3x['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
+
+    df_1x['Stellung'] = pd.to_numeric(df_1x['Stellung'], errors='coerce')
+    df_1x.sort_values(by='Stellung', inplace=True)
+    df_1x['Stellung'] = df_1x['Stellung'].apply(lambda x: str(int(x)) if pd.notnull(x) else 'Nein')
+
+    sma_sap, current_sap, percent_sap = calculate_sma("^GSPC")
+    sma_tip, current_tip, percent_tip = calculate_sma("TIP")
+    sma_gold, current_gold, percent_gold = calculate_sma("GC=F")
+
+    if sma_sap is None or sma_tip is None or sma_gold is None:
+        result = "Daten nicht verfügbar"
+    else:
+        if current_sap <= sma_sap or current_tip <= sma_tip:
+            result = "Gold" if current_gold > sma_gold else "Cash"
+        else:
+            result = "Buy"
+
+    data_letsgo = []
+    if sma_sap is not None:
+        data_letsgo.append(["S&P 500", f"{current_sap:.2f}", f"{sma_sap:.2f}", f"{percent_sap:.2f}%"])
+    if sma_tip is not None:
+        data_letsgo.append(["TIPS", f"{current_tip:.2f}", f"{sma_tip:.2f}", f"{percent_tip:.2f}%"])
+    if sma_gold is not None:
+        data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
+
+    return df_3x, df_1x, data_letsgo, result
+
+@app.route("/")
+def index():
+    df_3x, df_1x, data_letsgo, result = berechne_alle_daten()
+    gtaa_3x = df_3x.to_dict(orient="records")
+    gtaa_1x = df_1x.to_dict(orient="records")
+    return render_template("index.html", gtaa_3x=gtaa_3x, gtaa_1x=gtaa_1x, letsgo=data_letsgo, signal=result, df_3x_html=df_3x.to_html(classes="table table-bordered table-striped", index=False), df_1x_html=df_1x.to_html(classes="table table-bordered table-striped", index=False))
+
+if __name__ == "__main__":
+    app.run(debug=True)
