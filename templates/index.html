@@ -274,26 +274,35 @@
                     });
                 }
             }
-            
-            // Process 1x GTAA table - medals only for positions 1 and 2
-            const container1x = document.getElementById('1x-gtaa');
-            if (container1x) {
-                const table1x = container1x.querySelector('table');
-                if (table1x) {
-                    const rows = table1x.querySelectorAll('tbody tr');
+
+            const container3x = document.getElementById('3x-gtaa');
+            const container3xLeveraged = document.getElementById('3x-gtaa-leveraged');
+
+            const addMedals = (container) => {
+                const table = container.querySelector('table');
+                if (table) {
+                    const rows = table.querySelectorAll('tbody tr');
                     rows.forEach(row => {
                         const stellungCell = row.querySelector('td:first-child');
                         if (stellungCell) {
                             const rang = stellungCell.textContent.trim();
-                            if (rang === '1' || rang === '2') {
+                            if (rang === '1' || rang === '2' || rang === '3') {
                                 const medal = document.createElement('span');
                                 medal.className = `medal-${rang}`;
                                 medal.textContent = rang;
-                                stellungCell.textContent = '';
-                                stellungCell.appendChild(medal);
+                                stellungCell.textContent = '';  // Entfernt die ursprüngliche Zahl
+                                stellungCell.appendChild(medal);  // Fügt die Medaille hinzu
                                 stellungCell.setAttribute('data-rank', rang);
                             }
                         }
+                    });
+                }
+            };
+
+            // Medaillen für beide Container hinzufügen
+            if (container3x) addMedals(container3x);
+            if (container3xLeveraged) addMedals(container3xLeveraged);
+
                         
                         // Process percentage values for color coding
                         row.querySelectorAll('td').forEach(cell => {
