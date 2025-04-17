@@ -11,7 +11,7 @@ app.secret_key = os.urandom(24)  # Secret key for session management
 # User credentials
 USERS = {
     "admin": "Jonah_Beyer",
-    "GTAA": "3xGtaa"
+    "GTAA": "3xGTAA"
 }
 
 # Cache für yfinance-Daten
