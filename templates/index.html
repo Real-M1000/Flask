@@ -242,11 +242,21 @@
             const tables = document.querySelectorAll('table');
             tables.forEach(table => {
                 const rows = table.querySelectorAll('tbody tr');
+                
+                // Get the container of the table to check if it's 1x GTAA
+                const containerEl = table.closest('.table-container');
+                const is1xGTAA = containerEl && containerEl.querySelector('h2') && 
+                                containerEl.querySelector('h2').textContent.includes('1x GTAA');
+                
                 rows.forEach(row => {
                     const stellungCell = row.querySelector('td:first-child');
                     if (stellungCell) {
                         const rang = stellungCell.textContent.trim();
-                        if (rang === '1' || rang === '2' || rang === '3') {
+                        
+                        // For 3x GTAA and LETSGO, keep original logic
+                        // For 1x GTAA, only ranks 1 and 2 get medals
+                        if ((is1xGTAA && (rang === '1' || rang === '2')) || 
+                            (!is1xGTAA && (rang === '1' || rang === '2' || rang === '3'))) {
                             const medal = document.createElement('span');
                             medal.className = `medal-${rang}`;
                             medal.textContent = rang;
