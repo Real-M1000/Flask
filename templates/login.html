@@ -111,13 +111,12 @@
             font-weight: 600;
         }
         .toggle-password {
-            margin-top: 5px;
-            font-size: 0.9em;
-            cursor: pointer;
-            color: #006d77;
             background: none;
             border: none;
+            cursor: pointer;
+            color: #006d77;
             padding: 0;
+            font-size: 1.5em;
         }
     </style>
 </head>
@@ -143,7 +142,7 @@
                 <div class="form-group">
                     <label for="password">Passwort</label>
                     <input type="password" id="password" name="password" required>
-                    <button type="button" class="toggle-password" onclick="togglePassword()">Passwort anzeigen</button>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
                 </div>
                 <button type="submit">Anmelden</button>
             </form>
@@ -156,10 +155,14 @@
     <script>
         function togglePassword() {
             var passwordField = document.getElementById("password");
+            var toggleButton = document.querySelector(".toggle-password");
+
             if (passwordField.type === "password") {
                 passwordField.type = "text";
+                toggleButton.innerHTML = "👁️‍🗨️";  // Ändert das Symbol auf ein durchgestrichenes Auge
             } else {
                 passwordField.type = "password";
+                toggleButton.innerHTML = "👁️";  // Ändert das Symbol zurück auf ein normales Auge
             }
         }
     </script>
