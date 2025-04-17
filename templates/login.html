@@ -157,12 +157,13 @@
             var passwordField = document.getElementById("password");
             var toggleButton = document.querySelector(".toggle-password");
 
+            // Prüfen, ob das Passwort sichtbar ist und das Symbol wechseln
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleButton.innerHTML = "👁️‍🗨️";  // Ändert das Symbol auf ein durchgestrichenes Auge
+                toggleButton.innerHTML = "👁️‍🗨️";  // Das durchgestrichene Auge
             } else {
                 passwordField.type = "password";
-                toggleButton.innerHTML = "👁️";  // Ändert das Symbol zurück auf ein normales Auge
+                toggleButton.innerHTML = "👁️";  // Das normale Auge
             }
         }
     </script>
