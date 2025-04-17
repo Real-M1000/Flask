@@ -37,15 +37,15 @@ tickers_1x = {
 
 # 3x GTAA ungehebelt (neu)
 tickers_3x_unlevered = {
-    "BTC-EUR": ("Bitcoin EUR", "N/A"),
-    "XEON.DE": ("Cash", "N/A"),
-    "EUR=X": ("USD in EUR", "N/A"),
-    "XNAS.DE": ("Nasdaq 100", "IE00BMFKG444"),
-    "4GLD.DE": ("Gold", "N/A"),
-    "FCRU.MI": ("Öl", "IE00B6R51Z18"),
-    "SXRM.DE": ("Treasury Bond", "LU1379946036"),
-    "LYSX.DE": ("Euro Stoxx 50", "LU0274211217"),
-    "AMEM.DE": ("EM", "IE00B5M4WH52"),
+    "VBTC.DE": ("Bitcoin EUR", "DE000A28M8D0"),
+    "QQQ3.L": ("Nasdaq 100", "IE00BLRPRL42"),
+    "3EML.MI": ("EM", "IE00BYTYHN28"),
+    "LOIL.L": ("Öl", "JE00BDD9Q840"),
+    "JE00BMM1XC77.SG": ("USD long Eur short", "JE00BMM1XC77"),
+    "TLT5.L": ("Treasury Bond", "XS2595672036"),
+    "3GOL.L": ("Gold", "IE00B8HGT870"),
+    "XEON.DE": ("Cash", "LU0290358497"),
+    "3EUL.L": ("Euro Stoxx 50", "IE00B7SD4R47"),
 }
 
 # Performance-Funktion mit Cache
