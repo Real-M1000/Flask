@@ -60,6 +60,7 @@
         }
         .form-group {
             margin-bottom: 20px;
+            position: relative;
         }
         label {
             display: block;
@@ -111,11 +112,14 @@
             font-weight: 600;
         }
         .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
             color: #006d77;
-            padding: 0;
             font-size: 1.5em;
         }
     </style>
@@ -160,10 +164,10 @@
             // Prüfen, ob das Passwort sichtbar ist und das Symbol wechseln
             if (passwordField.type === "password") {
                 passwordField.type = "text";
-                toggleButton.innerHTML = "👁️‍🗨️";  // Das durchgestrichene Auge
+                toggleButton.innerHTML = "👁️‍🗨️";  // Das durchgestrichene Linien-Auge
             } else {
                 passwordField.type = "password";
-                toggleButton.innerHTML = "👁️";  // Das normale Auge
+                toggleButton.innerHTML = "👁️";  // Das normale Linien-Auge
             }
         }
     </script>
