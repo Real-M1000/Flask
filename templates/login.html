@@ -136,7 +136,7 @@
                 <div class="form-group">
                     <label for="password">Passwort</label>
                     <input type="password" id="password" name="password" required>
-                    <span class="eye-icon" onclick="togglePassword()">👁️</span>
+                    <span class="eye-icon" onclick="togglePassword()">👁️/</span>
                 </div>
                 <button type="submit">Anmelden</button>
             </form>
@@ -153,10 +153,10 @@
             
             if (passwordField.type === 'password') {
                 passwordField.type = 'text';
-                eyeIcon.textContent = '👁️'; // Auge offen
+                eyeIcon.textContent = '👁️/'; // Auge offen
             } else {
                 passwordField.type = 'password';
-                eyeIcon.textContent = '👁️/'; // Auge geschlossen
+                eyeIcon.textContent = '👁️'; // Auge geschlossen
             }
         }
     </script>
