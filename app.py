@@ -1,9 +1,18 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import yfinance as yf
 import pandas as pd
 import time
+import os
+from functools import wraps
 
 app = Flask(__name__)
+app.secret_key = os.urandom(24)  # Secret key for session management
+
+# User credentials
+USERS = {
+    "admin": "Jonah_Beyer",
+    "GTAA": "RigzevFWA!"
+}
 
 # Cache für yfinance-Daten
 cached_data = {}
@@ -47,6 +56,15 @@ tickers_3x_unlevered = {
     "XEON.DE": ("Cash", "LU0290358497"),
     "3EUL.L": ("Euro Stoxx 50", "IE00B7SD4R47"),
 }
+
+# Login required decorator
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Performance-Funktion mit Cache
 def performance_berechnen(ticker, info_dict):
@@ -114,7 +132,7 @@ def berechne_dataframe(ticker_dict):
     df = df[['Stellung'] + [col for col in df.columns if col != 'Stellung']]
     return df
 
-# LETSGO Berechnung (hier auch mit Cache sinnvoll, wenn’s oft aufgerufen wird)
+# LETSGO Berechnung (hier auch mit Cache sinnvoll, wenn's oft aufgerufen wird)
 def calculate_sma(ticker, period=175):
     try:
         now = time.time()
@@ -134,7 +152,27 @@ def calculate_sma(ticker, period=175):
     except:
         return None, None, None
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        if username in USERS and USERS[username] == password:
+            session['user'] = username
+            return redirect(url_for('index'))
+        else:
+            flash('Ungültiger Benutzername oder Passwort.', 'error')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login'))
+
 @app.route('/')
+@login_required
 def index():
     # alle DataFrames berechnen
     df_3x = berechne_dataframe(tickers_3x)
@@ -170,7 +208,8 @@ def index():
                            df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
                            df_1x=df_1x.to_html(classes="table table-bordered", index=False),
                            data_letsgo=data_letsgo,
-                           result=result)
+                           result=result,
+                           username=session['user'])
 
 if __name__ == "__main__":
     app.run(debug=False, host="0.0.0.0", port=100)
