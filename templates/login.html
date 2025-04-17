@@ -110,6 +110,15 @@
             margin-bottom: 30px;
             font-weight: 600;
         }
+        .toggle-password {
+            margin-top: 5px;
+            font-size: 0.9em;
+            cursor: pointer;
+            color: #006d77;
+            background: none;
+            border: none;
+            padding: 0;
+        }
     </style>
 </head>
 <body>
@@ -134,6 +143,7 @@
                 <div class="form-group">
                     <label for="password">Passwort</label>
                     <input type="password" id="password" name="password" required>
+                    <button type="button" class="toggle-password" onclick="togglePassword()">Passwort anzeigen</button>
                 </div>
                 <button type="submit">Anmelden</button>
             </form>
@@ -142,5 +152,16 @@
     <div class="footer">
         <p></p>
     </div>
+
+    <script>
+        function togglePassword() {
+            var passwordField = document.getElementById("password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+    </script>
 </body>
 </html>
