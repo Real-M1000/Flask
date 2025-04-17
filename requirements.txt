@@ -4,3 +4,4 @@ yfinance
 gunicorn
 qrcode
 tabulate
+flask-login
