@@ -200,8 +200,6 @@
             {{ df_3x_unlevered|safe }}
         </div>
         
-
-        
         <div class="table-container" id="1x-gtaa">
             <h2>1x GTAA</h2>
             {{ df_1x|safe }}
@@ -243,92 +241,75 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Process 3x GTAA table - medals for positions 1, 2, and 3
-            const container3x = document.getElementById('3x-gtaa');
-            if (container3x) {
-                const table3x = container3x.querySelector('table');
-                if (table3x) {
-                    const rows = table3x.querySelectorAll('tbody tr');
-                    rows.forEach(row => {
-                        const stellungCell = row.querySelector('td:first-child');
-                        if (stellungCell) {
-                            const rang = stellungCell.textContent.trim();
-                            if (rang === '1' || rang === '2' || rang === '3') {
-                                const medal = document.createElement('span');
-                                medal.className = `medal-${rang}`;
-                                medal.textContent = rang;
-                                stellungCell.textContent = '';
-                                stellungCell.appendChild(medal);
-                                stellungCell.setAttribute('data-rank', rang);
+            // Function to add medals for positions and color coding
+            const processTables = (containerId, medalLimit) => {
+                const container = document.getElementById(containerId);
+                if (container) {
+                    const table = container.querySelector('table');
+                    if (table) {
+                        const rows = table.querySelectorAll('tbody tr');
+                        rows.forEach(row => {
+                            const stellungCell = row.querySelector('td:first-child');
+                            if (stellungCell) {
+                                const rang = stellungCell.textContent.trim();
+                                // Check if position is within medal limit
+                                if (parseInt(rang) <= medalLimit) {
+                                    const medal = document.createElement('span');
+                                    medal.className = `medal-${rang}`;
+                                    medal.textContent = rang;
+                                    stellungCell.textContent = '';
+                                    stellungCell.appendChild(medal);
+                                    stellungCell.setAttribute('data-rank', rang);
+                                }
                             }
-                        }
-                        
-                        // Process percentage values for color coding
-                        row.querySelectorAll('td').forEach(cell => {
-                            const text = cell.textContent.trim();
-                            if (text.endsWith('%')) {
-                                const value = parseFloat(text);
-                                cell.setAttribute('data-value', value);
-                            }
+                            
+                            // Apply color coding to numerical values
+                            row.querySelectorAll('td').forEach(cell => {
+                                const text = cell.textContent.trim();
+                                if (text.includes('%') || (!isNaN(parseFloat(text)) && isFinite(text))) {
+                                    let value;
+                                    if (text.includes('%')) {
+                                        value = parseFloat(text);
+                                    } else {
+                                        value = parseFloat(text);
+                                    }
+                                    
+                                    if (!isNaN(value)) {
+                                        cell.setAttribute('data-value', value);
+                                    }
+                                }
+                            });
                         });
-                    });
-                }
-            }
-
-            const container3x = document.getElementById('3x-gtaa');
-            const container3xLeveraged = document.getElementById('3x-gtaa-leveraged');
-
-            const addMedals = (container) => {
-                const table = container.querySelector('table');
-                if (table) {
-                    const rows = table.querySelectorAll('tbody tr');
-                    rows.forEach(row => {
-                        const stellungCell = row.querySelector('td:first-child');
-                        if (stellungCell) {
-                            const rang = stellungCell.textContent.trim();
-                            if (rang === '1' || rang === '2' || rang === '3') {
-                                const medal = document.createElement('span');
-                                medal.className = `medal-${rang}`;
-                                medal.textContent = rang;
-                                stellungCell.textContent = '';  // Entfernt die ursprüngliche Zahl
-                                stellungCell.appendChild(medal);  // Fügt die Medaille hinzu
-                                stellungCell.setAttribute('data-rank', rang);
-                            }
-                        }
-                    });
+                    }
                 }
             };
 
-            // Medaillen für beide Container hinzufügen
-            if (container3x) addMedals(container3x);
-            if (container3xLeveraged) addMedals(container3xLeveraged);
-
-                        
-                        // Process percentage values for color coding
-                        row.querySelectorAll('td').forEach(cell => {
-                            const text = cell.textContent.trim();
-                            if (text.endsWith('%')) {
-                                const value = parseFloat(text);
-                                cell.setAttribute('data-value', value);
-                            }
-                        });
-                    });
-                }
-            }
+            // Process each table with the appropriate medal limit
+            processTables('3x-gtaa', 3);           // Medals for positions 1, 2, and 3
+            processTables('3x-gtaa-leveraged', 3); // Medals for positions 1, 2, and 3
+            processTables('1x-gtaa', 2);           // Medals for positions 1 and 2 only
             
-            // Process LETSGO table - no medal processing needed
+            // Process LETSGO table for color coding only (no medals)
             const containerLetsgo = document.getElementById('letsgo');
             if (containerLetsgo) {
                 const tableLetsgo = containerLetsgo.querySelector('table');
                 if (tableLetsgo) {
                     const rows = tableLetsgo.querySelectorAll('tbody tr');
                     rows.forEach(row => {
-                        // Process percentage values for color coding
+                        // Process numerical values for color coding
                         row.querySelectorAll('td').forEach(cell => {
                             const text = cell.textContent.trim();
-                            if (text.endsWith('%')) {
-                                const value = parseFloat(text);
-                                cell.setAttribute('data-value', value);
+                            if (text.includes('%') || (!isNaN(parseFloat(text)) && isFinite(text))) {
+                                let value;
+                                if (text.includes('%')) {
+                                    value = parseFloat(text);
+                                } else {
+                                    value = parseFloat(text);
+                                }
+                                
+                                if (!isNaN(value)) {
+                                    cell.setAttribute('data-value', value);
+                                }
                             }
                         });
                     });
