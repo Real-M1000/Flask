@@ -21,6 +21,7 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
         .header h1 {
             margin: 0;
@@ -184,11 +185,42 @@
         td[data-value]:not([data-value^="-"]):not([data-value="0"]):not(:first-child) {
             color: #28a745;
         }
+        /* User info and logout */
+        .user-info {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .username {
+            margin-right: 15px;
+            opacity: 0.9;
+        }
+        .logout-btn {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .logout-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>GTAA & LETSGO</h1>
+        <div class="user-info">
+            <span class="username">{{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Abmelden</a>
+        </div>
     </div>
     <div class="main-content">
         <div class="table-container" id="3x-gtaa">
