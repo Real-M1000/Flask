@@ -190,20 +190,19 @@
     <div class="header">
         <h1>GTAA & LETSGO</h1>
     </div>
-    <h2>Werte Jetzt:</h2>
     <div class="main-content">
-        <div class="table-container">
+        <div class="table-container" id="3x-gtaa">
             <h2>3x GTAA</h2>
             {{ df_3x|safe }}
         </div>
 
         
-        <div class="table-container">
+        <div class="table-container" id="1x-gtaa">
             <h2>1x GTAA</h2>
             {{ df_1x|safe }}
         </div>
 
-        <div class="table-container small">
+        <div class="table-container small" id="letsgo">
             <h2>LETSGO Strategie</h2>
             <table>
                 <thead>
@@ -239,42 +238,88 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const tables = document.querySelectorAll('table');
-            tables.forEach(table => {
-                const rows = table.querySelectorAll('tbody tr');
-                
-                // Get the container of the table to check if it's 1x GTAA
-                const containerEl = table.closest('.table-container');
-                const is1xGTAA = containerEl && containerEl.querySelector('h2') && 
-                                containerEl.querySelector('h2').textContent.includes('1x GTAA');
-                
-                rows.forEach(row => {
-                    const stellungCell = row.querySelector('td:first-child');
-                    if (stellungCell) {
-                        const rang = stellungCell.textContent.trim();
+            // Process 3x GTAA table - medals for positions 1, 2, and 3
+            const container3x = document.getElementById('3x-gtaa');
+            if (container3x) {
+                const table3x = container3x.querySelector('table');
+                if (table3x) {
+                    const rows = table3x.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        const stellungCell = row.querySelector('td:first-child');
+                        if (stellungCell) {
+                            const rang = stellungCell.textContent.trim();
+                            if (rang === '1' || rang === '2' || rang === '3') {
+                                const medal = document.createElement('span');
+                                medal.className = `medal-${rang}`;
+                                medal.textContent = rang;
+                                stellungCell.textContent = '';
+                                stellungCell.appendChild(medal);
+                                stellungCell.setAttribute('data-rank', rang);
+                            }
+                        }
                         
-                        // For 3x GTAA and LETSGO, keep original logic
-                        // For 1x GTAA, only ranks 1 and 2 get medals
-                        if ((is1xGTAA && (rang === '1' || rang === '2')) || 
-                            (!is1xGTAA && (rang === '1' || rang === '2' || rang === '3'))) {
-                            const medal = document.createElement('span');
-                            medal.className = `medal-${rang}`;
-                            medal.textContent = rang;
-                            stellungCell.textContent = '';
-                            stellungCell.appendChild(medal);
-                            stellungCell.setAttribute('data-rank', rang);
-                        }
-                    }
-                    
-                    row.querySelectorAll('td').forEach(cell => {
-                        const text = cell.textContent.trim();
-                        if (text.endsWith('%')) {
-                            const value = parseFloat(text);
-                            cell.setAttribute('data-value', value);
-                        }
+                        // Process percentage values for color coding
+                        row.querySelectorAll('td').forEach(cell => {
+                            const text = cell.textContent.trim();
+                            if (text.endsWith('%')) {
+                                const value = parseFloat(text);
+                                cell.setAttribute('data-value', value);
+                            }
+                        });
                     });
-                });
-            });
+                }
+            }
+            
+            // Process 1x GTAA table - medals only for positions 1 and 2
+            const container1x = document.getElementById('1x-gtaa');
+            if (container1x) {
+                const table1x = container1x.querySelector('table');
+                if (table1x) {
+                    const rows = table1x.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        const stellungCell = row.querySelector('td:first-child');
+                        if (stellungCell) {
+                            const rang = stellungCell.textContent.trim();
+                            if (rang === '1' || rang === '2') {
+                                const medal = document.createElement('span');
+                                medal.className = `medal-${rang}`;
+                                medal.textContent = rang;
+                                stellungCell.textContent = '';
+                                stellungCell.appendChild(medal);
+                                stellungCell.setAttribute('data-rank', rang);
+                            }
+                        }
+                        
+                        // Process percentage values for color coding
+                        row.querySelectorAll('td').forEach(cell => {
+                            const text = cell.textContent.trim();
+                            if (text.endsWith('%')) {
+                                const value = parseFloat(text);
+                                cell.setAttribute('data-value', value);
+                            }
+                        });
+                    });
+                }
+            }
+            
+            // Process LETSGO table - no medal processing needed
+            const containerLetsgo = document.getElementById('letsgo');
+            if (containerLetsgo) {
+                const tableLetsgo = containerLetsgo.querySelector('table');
+                if (tableLetsgo) {
+                    const rows = tableLetsgo.querySelectorAll('tbody tr');
+                    rows.forEach(row => {
+                        // Process percentage values for color coding
+                        row.querySelectorAll('td').forEach(cell => {
+                            const text = cell.textContent.trim();
+                            if (text.endsWith('%')) {
+                                const value = parseFloat(text);
+                                cell.setAttribute('data-value', value);
+                            }
+                        });
+                    });
+                }
+            }
         });
     </script>
 </body>
