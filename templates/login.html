@@ -111,15 +111,12 @@
             margin-bottom: 30px;
             font-weight: 600;
         }
-        .toggle-password {
+        .eye-icon {
             position: absolute;
-            right: 10px;
             top: 50%;
+            right: 10px;
             transform: translateY(-50%);
-            background: none;
-            border: none;
             cursor: pointer;
-            color: #006d77;
             font-size: 1.5em;
         }
     </style>
@@ -131,13 +128,6 @@
     <div class="main-content">
         <div class="login-form">
             <h2>Anmeldung</h2>
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }}">{{ message }}</div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
             <form method="post">
                 <div class="form-group">
                     <label for="username">Benutzername</label>
@@ -146,7 +136,7 @@
                 <div class="form-group">
                     <label for="password">Passwort</label>
                     <input type="password" id="password" name="password" required>
-                    <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+                    <span class="eye-icon" onclick="togglePassword()">👁️</span>
                 </div>
                 <button type="submit">Anmelden</button>
             </form>
@@ -158,16 +148,15 @@
 
     <script>
         function togglePassword() {
-            var passwordField = document.getElementById("password");
-            var toggleButton = document.querySelector(".toggle-password");
-
-            // Prüfen, ob das Passwort sichtbar ist und das Symbol wechseln
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleButton.innerHTML = "👁️‍🗨️";  // Das durchgestrichene Linien-Auge
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.querySelector('.eye-icon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                eyeIcon.textContent = '👁️'; // Auge offen
             } else {
-                passwordField.type = "password";
-                toggleButton.innerHTML = "👁️";  // Das normale Linien-Auge
+                passwordField.type = 'password';
+                eyeIcon.textContent = '👁️/'; // Auge geschlossen
             }
         }
     </script>
