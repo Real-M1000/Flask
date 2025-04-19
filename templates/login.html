@@ -5,6 +5,72 @@
     <title>GTAA und LETSGO - Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+         :root {
+            /* Light mode (default) variables */
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --header-footer-gradient: linear-gradient(135deg, #004643, #005955);
+            --heading-color: #006d77;
+            --table-even-row: #f8f9fa;
+            --table-hover: #e3f2fd;
+            --card-bg: #ffffff;
+            --card-shadow: 0 10px 30px rgba(0, 109, 119, 0.1);
+            --card-border: 1px solid rgba(0, 109, 119, 0.1);
+            --input-border: #e0e0e0;
+            --alert-bg: #f8d7da;
+            --alert-color: #721c24;
+            --alert-border: #f5c6cb;
+            --button-gradient: linear-gradient(135deg, #006d77, #008891);
+            --button-hover-gradient: linear-gradient(135deg, #005f69, #007883);
+        }
+
+        /* Dark mode variables */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --header-footer-gradient: linear-gradient(135deg, #002a29, #004341);
+                --heading-color: #4db6c0;
+                --table-even-row: #1e1e1e;
+                --table-hover: #2a3f4d;
+                --card-bg: #1e1e1e;
+                --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                --card-border: 1px solid rgba(0, 109, 119, 0.2);
+                --input-border: #444444;
+                --alert-bg: #3b1c1f;
+                --alert-color: #f8c4ca;
+                --alert-border: #632229;
+                --button-gradient: linear-gradient(135deg, #00858f, #009aa3);
+                --button-hover-gradient: linear-gradient(135deg, #00757f, #008a93);
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .header {
+            background: var(--header-footer-gradient);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        
+        .header h1 {
+            margin: 0;
+            color: white;
+            font-size: 2em;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
