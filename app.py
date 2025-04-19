@@ -10,7 +10,7 @@ app.secret_key = os.urandom(24)  # Secret key for session management
 
 # User credentials
 USERS = {
-    "Gast": "Gast_25!",
+    "GTAA": "LETSGO!",
     "Noah Beyer": "idmuh137!",
     "Jonah Beyer": "Jonah13!"
 }
