@@ -12,7 +12,7 @@ app.secret_key = os.urandom(24)  # Secret key for session management
 USERS = {
     "GTAA": "LETSGO!",
     "Noah Beyer": "idmuh137!",
-    "Jonah Beyer": "Jonah12"
+    "Jonah Beyer": "Jonah13!"
 }
 
 # Cache für yfinance-Daten
