@@ -20,42 +20,42 @@ cached_data = {}
 cache_time = {}
 CACHE_TIMEOUT = 60  # Sekunden
 
-# 3x GTAA Ticker mit Name und ISIN
-tickers_3x = {
-    "BTC-EUR": ("Bitcoin EUR", "N/A"),
-    "XEON.DE": ("Xtrackers II EUR Overnight Rate Swap UCITS ETF 1C (Cash)", "N/A"),
-    "EUR=X": ("USD in EUR", "N/A"),
-    "XNAS.DE": ("Xtrackers NASDAQ 100 UCITS ETF 1C (Nasdaq 100)", "IE00BMFKG444"),
-    "4GLD.DE": ("Xetra-Gold", "N/A"),
-    "FCRU.MI": ("WisdomTree WTI Crude Oil Longer Dated (Öl)", "IE00B6R51Z18"),
-    "SXRM.DE": ("iShares VII PLC - iShares $ Treasury Bd 7-10y ETF USD Acc ", "LU1379946036"),
-    "LYSX.DE": ("Amundi EURO STOXX 50 II UCITS ETF (Euro Stoxx 50)", "LU0274211217"),
-    "AMEM.DE": ("Amundi Index Solutions - Amundi MSCI Emerging Markets UCITS ETF-C EUR", "IE00B5M4WH52"),
-}
-
-# 1x GTAA Ticker mit Name und ISIN
-tickers_1x = {
-    "XNAS.DE": ("NASDAQ 100", "LU1681047309"),
-    "AW1T.DE": ("EMU Value", "DE000A1JXAF0"),
-    "SPYX.DE": ("EM SC", "US78468R7476"),
-    "UEQU.DE": ("Rohstoffe", "LU1399300455"),
-    "SXRM.DE": ("Treasury Bond 7-10yr", "LU1379946036"),
-    "FEDF.MI": ("USD Overnight Rate", "LU1659681400"),
-    "4GLD.DE": ("Gold", "DE000A0N62G0"),
-    "XEON.DE": ("Cash", "LU1955962902")
-}
-
-# 3x GTAA ungehebelt (neu)
+# 3x GTAA Ticker mit Name und ISIN - Hier werden die 3x gehebelten Produkte aufgeführt
 tickers_3x_unlevered = {
-    "VBTC.DE": ("Bitcoin EUR", "DE000A28M8D0"),
-    "QQQ3.L": ("Nasdaq 100", "IE00BLRPRL42"),
-    "3EML.MI": ("EM", "IE00BYTYHN28"),
-    "LOIL.L": ("Öl", "JE00BDD9Q840"),
-    "JE00BMM1XC77.SG": ("USD long Eur short", "JE00BMM1XC77"),
-    "TLT5.L": ("Treasury Bond", "XS2595672036"),
-    "3GOL.L": ("Gold", "IE00B8HGT870"),
-    "XEON.DE": ("Cash", "LU0290358497"),
-    "3EUL.L": ("Euro Stoxx 50", "IE00B7SD4R47"),
+    "BTC-EUR": ("Bitcoin (1x)", "DE000A28M8D0"),
+    "XEON.DE": ("Euro-Geldmarkt (1x)", "LU0290358497"),
+    "EUR=X": ("USD long EUR short (5x)", "JE00BMM1XC77"),
+    "XNAS.DE": ("NASDAQ 100 (3x)", "IE00BLRPRL42"),
+    "4GLD.DE": ("Gold (3x)", "IE00B8HGT870"),
+    "FCRU.MI": ("WTI (2x)", "JE00BDD9Q840"),
+    "SXRM.DE": ("Treasuries 7-10/20+ (5x)", "XS2595672036"),
+    "LYSX.DE": ("Euro Stoxx 50 (3x)", "IE00B7SD4R47"),
+    "AMEM.DE": ("EM (3x)", "IE00BYTYHN28"),
+}
+
+# 1x GTAA Ticker mit Name und ISIN - Ungehebelt
+tickers_1x = {
+    "XNAS.DE": ("NASDAQ 100", "IE00BMFKG444"),
+    "AW1T.DE": ("EMU Value", "LU1598690169"),
+    "SPYX.DE": ("EM SC", "IE00B48X4842"),
+    "UEQU.DE": ("Rohstoffe", "IE00BZ2GV965"),
+    "SXRM.DE": ("Treasury Bond 7-10yr", "IE00BF2FN646"),
+    "FEDF.MI": ("USD Overnight Rate", "LU1233598447"),
+    "4GLD.DE": ("Gold", "DE000A0S9GB0"),
+    "XEON.DE": ("Euro-Geldmarkt", "LU0290358497")
+}
+
+# 3x GTAA ungehebelt - Ungehebelte Ticker für die 3x GTAA Strategie
+tickers_3x = {
+    "VBTC.DE": ("Bitcoin", "DE000A28M8D0"),
+    "QQQ3.L": ("NASDAQ 100", "IE00BMFKG444"),
+    "3EML.MI": ("EM", "IE00B4L5YC18"),
+    "LOIL.L": ("WTI", "GB00B15KXV33"),
+    "JE00BMM1XC77.SG": ("USD long EUR short", "JE00BMM1XC77"),
+    "TLT5.L": ("Treasuries 7-10/20+", "IE00B3VWN518"),
+    "3GOL.L": ("Gold", "DE000A0S9GB0"),
+    "XEON.DE": ("Euro-Geldmarkt", "LU0290358497"),
+    "3EUL.L": ("Euro Stoxx 50", "LU0274211217"),
 }
 
 # Login required decorator
