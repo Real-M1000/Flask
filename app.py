@@ -23,14 +23,14 @@ CACHE_TIMEOUT = 60  # Sekunden
 # 3x GTAA Ticker mit Name und ISIN
 tickers_3x = {
     "BTC-EUR": ("Bitcoin EUR", "N/A"),
-    "XEON.DE": ("Cash", "N/A"),
+    "XEON.DE": ("Xtrackers II EUR Overnight Rate Swap UCITS ETF 1C (Cash)", "N/A"),
     "EUR=X": ("USD in EUR", "N/A"),
-    "XNAS.DE": ("Nasdaq 100", "IE00BMFKG444"),
-    "4GLD.DE": ("Gold", "N/A"),
-    "FCRU.MI": ("Öl", "IE00B6R51Z18"),
-    "SXRM.DE": ("Treasury Bond", "LU1379946036"),
-    "LYSX.DE": ("Euro Stoxx 50", "LU0274211217"),
-    "AMEM.DE": ("EM", "IE00B5M4WH52"),
+    "XNAS.DE": ("Xtrackers NASDAQ 100 UCITS ETF 1C (Nasdaq 100)", "IE00BMFKG444"),
+    "4GLD.DE": ("Xetra-Gold", "N/A"),
+    "FCRU.MI": ("WisdomTree WTI Crude Oil Longer Dated (Öl)", "IE00B6R51Z18"),
+    "SXRM.DE": ("iShares VII PLC - iShares $ Treasury Bd 7-10y ETF USD Acc ", "LU1379946036"),
+    "LYSX.DE": ("Amundi EURO STOXX 50 II UCITS ETF (Euro Stoxx 50)", "LU0274211217"),
+    "AMEM.DE": ("Amundi Index Solutions - Amundi MSCI Emerging Markets UCITS ETF-C EUR", "IE00B5M4WH52"),
 }
 
 # 1x GTAA Ticker mit Name und ISIN
