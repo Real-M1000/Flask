@@ -47,14 +47,14 @@ tickers_1x = {
 
 # 3x GTAA ungehebelt - Ungehebelte Ticker für die 3x GTAA Strategie
 tickers_3x = {
-    "VBTC.DE": ("Bitcoin", "DE000A28M8D0"),
+    "VBTC.DE": ("N/A", "N/A"),
     "QQQ3.L": ("NASDAQ 100", "IE00BMFKG444"),
-    "3EML.MI": ("EM", "IE00B4L5YC18"),
-    "LOIL.L": ("WTI", "GB00B15KXV33"),
-    "JE00BMM1XC77.SG": ("USD long EUR short", "JE00BMM1XC77"),
-    "TLT5.L": ("Treasuries 7-10/20+", "IE00B3VWN518"),
+    "3EML.MI": ("N/A", "N/A"),
+    "LOIL.L": ("Rohstoffe", "IE00BZ2GV965"),
+    "JE00BMM1XC77.SG": ("USD Overnight Rate", "LU1233598447"),
+    "TLT5.L": ("Treasury Bond 7-10yr", "IE00B3VWN518"),
     "3GOL.L": ("Gold", "DE000A0S9GB0"),
-    "XEON.DE": ("Euro-Geldmarkt", "LU0290358497"),
+    "XEON.DE": ("Euro-Geldmarkt", "N/A"),
     "3EUL.L": ("Euro Stoxx 50", "LU0274211217"),
 }
 
