@@ -28,7 +28,7 @@ tickers_1x = {
     "SXRM.DE": ("iShares USD Treasury Bond 7-10yr UCITS ETF (Acc)", "IE00B3VWN518"),
     "B8TC.DE": ("Amundi USD Fed Funds Rate UCITS ETF Acc", "LU1233598447"),
     "4GLD.DE": ("Xetra-Gold", "DE000A0S9GB0"),
-    "XEON.DE": ("Euro-Geldmarkt", "N/A (LU0290358497)")
+    "XEON.DE": ("Euro-Geldmarkt", "LU0290358497 (N/A)")
 }
 
 
