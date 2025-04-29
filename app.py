@@ -55,7 +55,7 @@ tickers_3x = {
     "EURUSD=X": ("USD short EUR long", "N/A"),
     "GC=F": ("Gold", "N/A"),
     "XEON.DE": ("Euro-Geldmarkt", "N/A"),
-    "": ("", ""),
+    "EXW1.DE": ("iShares Core EURO STOXX 50 UCITS ETF (DE)", "DE0005933956"),
 }
 
 
