@@ -46,7 +46,7 @@ tickers_3x_unlevered = {
 
 
 tickers_3x = {
-    "BTC-EUR": ("Bitcoin", "N/A"),
+    "BTC-USD": ("Bitcoin", "N/A"),
     "XNAS.MI": ("NASDAQ 100", "IE00BMFKG444"),
     "EUNM.DE": ("EM", "IE00B4L5YC18"),
     "CRUD.MI": ("WTI", "GB00B15KXV33"),
@@ -54,7 +54,8 @@ tickers_3x = {
     "EUR=X": ("USD long EUR short", "N/A"),
     "EURUSD=X": ("USD short EUR long", "N/A"),
     "GC=F": ("Gold", "N/A"),
-    "XEON.DE": ("Euro-Geldmarkt", "N/A")
+    "XEON.DE": ("Euro-Geldmarkt", "N/A"),
+    "": ("", ""),
 }
 
 
