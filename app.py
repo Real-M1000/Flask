@@ -21,14 +21,14 @@ cache_time = {}
 CACHE_TIMEOUT = 60  # Sekunden
 
 tickers_1x = {
-    "XNAS.DE": ("NASDAQ 100", "IE00BMFKG444"),
-    "AW1T.DE": ("EMU Value", "LU0950669845"),
-    "SPYX.DE": ("EM SC", "IE00B48X4842"),
-    "UEQU.DE": ("Rohstoffe", "IE00BZ2GV965"),
-    "SXRM.DE": ("Treasury Bond 7-10yr", "IE00B3VWN518"),
-    "FEDF.MI": ("USD Overnight Rate", "LU1233598447"),
-    "4GLD.DE": ("Gold", "DE000A0S9GB0"),
-    "XEON.DE": ("Euro-Geldmarkt", "N/A")
+    "XNAS.DE": ("Xtrackers Nasdaq 100 UCITS ETF 1C", "IE00BMFKG444"),
+    "AW1T.DE": ("UBS ETF (LU) MSCI EMU Value UCITS ETF (EUR) A-acc", "LU0950669845"),
+    "SPYX.DE": ("SPDR MSCI Emerging Markets Small Cap UCITS ETF", "IE00B48X4842"),
+    "UEQU.DE": ("UBS ETF (IE) CMCI ex-Agriculture SF UCITS ETF (USD) A-acc", "IE00BZ2GV965"),
+    "SXRM.DE": ("iShares USD Treasury Bond 7-10yr UCITS ETF (Acc)", "IE00B3VWN518"),
+    "B8TC.DE": ("Amundi USD Fed Funds Rate UCITS ETF Acc", "LU1233598447"),
+    "4GLD.DE": ("Xetra-Gold", "DE000A0S9GB0"),
+    "XEON.DE": ("Euro-Geldmarkt", "N/A (LU0290358497)")
 }
 
 
