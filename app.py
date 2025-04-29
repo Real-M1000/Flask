@@ -100,22 +100,15 @@ def performance_berechnen(ticker, info_dict):
         if all_data.empty or len(all_data) < 2:
             return None
             
-        # Berechne Performancezeiträume
-        heute = pd.Timestamp.now()
-        drei_monate = heute - pd.DateOffset(months=3)
-        sechs_monate = heute - pd.DateOffset(months=6)
-        ein_monat = heute - pd.DateOffset(months=1)
-        
-        # Filter Daten für verschiedene Zeiträume
-        daten_9m = all_data
-        daten_6m = all_data[all_data.index >= sechs_monate]
-        daten_3m = all_data[all_data.index >= drei_monate]
-        daten_1m = all_data[all_data.index >= ein_monat]
-        
-        performance_9m = berechne_performance(daten_9m)
-        performance_6m = berechne_performance(daten_6m)
-        performance_3m = berechne_performance(daten_3m)
-        performance_1m = berechne_performance(daten_1m)
+        # jeweils mit kleiner Pause, damit yfinance nicht dichtmacht
+        time.sleep(0.2)
+        performance_9m = berechne_performance(asset.history(period="9mo"))
+        time.sleep(0.2)
+        performance_6m = berechne_performance(asset.history(period="6mo"))
+        time.sleep(0.2)
+        performance_3m = berechne_performance(asset.history(period="3mo"))
+        time.sleep(0.2)
+        performance_1m = berechne_performance(asset.history(period="1mo"))
 
         momentum = (performance_1m + performance_3m + performance_6m + performance_9m) / 4
         sma_percent = ((letzter_schluss_150 / sma_150) - 1) * 100
