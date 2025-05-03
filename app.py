@@ -42,7 +42,8 @@ tickers_3x_unlevered = {
     "EUS5.MI": ("USD long EUR short (5x)", "JE00BMM1XC77"),
     "3GLD.DE": ("Gold (3x)", "IE00B8HGT870"),
     "XEON.DE": ("Euro-Geldmarkt (1x)", "LU0290358497"),
-    "3EUL.MI": ("Euro Stoxx 50 (3x)", "IE00B7SD4R47")
+    "3EUL.MI": ("Euro Stoxx 50 (3x)", "IE00B7SD4R47"),
+    "USE5.MI": ("WisdomTree Short USD Long EUR 5x Daily", "JE00BMM1XD84")
 }
 
 
