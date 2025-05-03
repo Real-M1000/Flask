@@ -39,7 +39,7 @@ tickers_3x_unlevered = {
     "3EML.MI": ("WisdomTree Emerging Markets 3x Daily Leveraged(3x)", "IE00BYTYHN28"),
     "LOIL.MI": ("WisdomTree WTI Crude Oil 2x Daily Leveraged", "JE00BDD9Q840"),
     "TLT5.DE": ("Leverage Shares PLC E (Treasuries 7-10/20+ (5x))", "XS2595672036"),
-    "EUS5.MI": ("WisdomTree Long USD Short EUR 5x Daily", "JE00BMM1XC77"),
+    "EUS5.MI": ("USD long EUR short (5x)", "JE00BMM1XC77"),
     "3GLD.DE": ("Gold (3x)", "IE00B8HGT870"),
     "XEON.DE": ("Euro-Geldmarkt (1x)", "LU0290358497"),
     "3EUL.MI": ("Euro Stoxx 50 (3x)", "IE00B7SD4R47"),
@@ -170,6 +170,9 @@ def berechne_dataframe(ticker_dict):
     df['Stellung_sort'] = df['Stellung'].apply(lambda x: float('inf') if x == 'Nein' else int(x))
     df = df.sort_values('Stellung_sort')
     df = df.drop('Stellung_sort', axis=1)
+    
+    # Ticker und ISIN kombinieren
+    df['Ticker'] = df['Ticker'] + ' (' + df.index + ')'
     
     # Spalten neu anordnen
     df = df[['Stellung', 'Asset', 'Ticker', '1mo', '3mo', '6mo', '9mo', 'Momentum', 'Jetzt über SMA in %']]
