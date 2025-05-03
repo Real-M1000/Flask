@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import yfinance as yf
 import pandas as pd
 import time
 import os
+import json
 from functools import wraps
 
 app = Flask(__name__)
@@ -200,6 +201,61 @@ def calculate_sma(ticker, period=175):
         print(f"Fehler bei SMA-Berechnung für {ticker}: {str(e)}")
         return None, None, None
 
+# NEU: API-Endpunkt für das Abrufen aktualisierter Daten
+@app.route('/api/refresh-data', methods=['GET'])
+@login_required
+def refresh_data():
+    try:
+        # Cache leeren, um frische Daten zu erzwingen
+        global cached_data, cache_time
+        cached_data = {}
+        cache_time = {}
+        
+        # Dataframes berechnen
+        df_3x = berechne_dataframe(tickers_3x)
+        df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
+        df_1x = berechne_dataframe(tickers_1x)
+
+        # LETSGO Indikator
+        tickersap = "^GSPC"
+        tickertip = "TIP"
+        tickergold = "GC=F"
+        
+        sma_sap, current_sap, percent_sap = calculate_sma(tickersap)
+        sma_tip, current_tip, percent_tip = calculate_sma(tickertip)
+        sma_gold, current_gold, percent_gold = calculate_sma(tickergold)
+
+        if sma_sap is None or sma_tip is None or sma_gold is None:
+            result = "Daten nicht verfügbar"
+        else:
+            if current_sap <= sma_sap or current_tip <= sma_tip:
+                result = "Gold" if current_gold > sma_gold else "Cash"
+            else:
+                result = "Buy"
+
+        data_letsgo = []
+        if sma_sap is not None:
+            data_letsgo.append(["S&P 500", f"{current_sap:.2f}", f"{sma_sap:.2f}", f"{percent_sap:.2f}%"])
+        if sma_tip is not None:
+            data_letsgo.append(["TIPS", f"{current_tip:.2f}", f"{sma_tip:.2f}", f"{percent_tip:.2f}%"])
+        if sma_gold is not None:
+            data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
+            
+        # Aktuelle Zeit hinzufügen
+        current_time = time.strftime("%H:%M:%S", time.localtime())
+        
+        return jsonify({
+            'df_3x': df_3x.to_html(classes="table table-bordered", index=False),
+            'df_3x_unlevered': df_3x_unlevered.to_html(classes="table table-bordered", index=False),
+            'df_1x': df_1x.to_html(classes="table table-bordered", index=False),
+            'data_letsgo': data_letsgo,
+            'result': result,
+            'update_time': current_time
+        })
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -253,13 +309,17 @@ def index():
         if sma_gold is not None:
             data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
+        # Aktuelle Zeit hinzufügen
+        current_time = time.strftime("%H:%M:%S", time.localtime())
+
         return render_template('index.html',
                             df_3x=df_3x.to_html(classes="table table-bordered", index=False),
                             df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
                             df_1x=df_1x.to_html(classes="table table-bordered", index=False),
                             data_letsgo=data_letsgo,
                             result=result,
-                            username=session['user'])
+                            username=session['user'],
+                            update_time=current_time)
     except Exception as e:
         # Fehlerbehandlung für die Hauptseite
         print(f"Fehler in index route: {str(e)}")
