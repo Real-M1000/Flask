@@ -320,7 +320,7 @@ def index():
                             data_letsgo=data_letsgo,
                             result=result,
                             username=session['user'],
-                            
+                            )
     except Exception as e:
         # Fehlerbehandlung für die Hauptseite
         print(f"Fehler in index route: {str(e)}")
