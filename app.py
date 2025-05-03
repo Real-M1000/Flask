@@ -130,16 +130,21 @@ def performance_berechnen(ticker, info_dict):
 # Hilfsfunktion zur Berechnung und Sortierung
 def berechne_dataframe(ticker_dict):
     performances = []
+    tickers = []
     for t in ticker_dict:
         p = performance_berechnen(t, ticker_dict)
         if p is not None:
             performances.append(p)
+            tickers.append(t)
     
     if not performances:  # Wenn keine Daten verfügbar
         # Leeres DataFrame mit richtigen Spalten zurückgeben
-        return pd.DataFrame(columns=["Stellung", "Asset", "Ticker", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
+        return pd.DataFrame(columns=["Stellung", "Asset", "ISIN", "Ticker", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
     
-    df = pd.DataFrame(performances, columns=["Asset", "Ticker", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
+    df = pd.DataFrame(performances, columns=["Asset", "ISIN", "1mo", "3mo", "6mo", "9mo", "Momentum", "Jetzt über SMA in %"])
+    
+    # Ticker als neue Spalte hinzufügen
+    df['Ticker'] = tickers
     
     # Numerische Werte für Sortierung sichern
     df['Momentum_num'] = df['Momentum']
@@ -171,11 +176,8 @@ def berechne_dataframe(ticker_dict):
     df = df.sort_values('Stellung_sort')
     df = df.drop('Stellung_sort', axis=1)
     
-    # Ticker und ISIN kombinieren
-    df['Ticker'] = df['Ticker'] + ' (' + df.index + ')'
-    
     # Spalten neu anordnen
-    df = df[['Stellung', 'Asset', 'Ticker', '1mo', '3mo', '6mo', '9mo', 'Momentum', 'Jetzt über SMA in %']]
+    df = df[['Stellung', 'Asset', 'ISIN', 'Ticker', '1mo', '3mo', '6mo', '9mo', 'Momentum', 'Jetzt über SMA in %']]
     
     return df
 
