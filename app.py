@@ -247,9 +247,7 @@ def refresh_data():
         if sma_gold is not None:
             data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
             
-        # Aktuelle Zeit hinzufügen
-        current_time = time.strftime("%H:%M:%S", time.localtime())
-        
+
         return jsonify({
             'df_3x': df_3x.to_html(classes="table table-bordered", index=False),
             'df_3x_unlevered': df_3x_unlevered.to_html(classes="table table-bordered", index=False),
@@ -315,9 +313,6 @@ def index():
         if sma_gold is not None:
             data_letsgo.append(["Gold", f"{current_gold:.2f}", f"{sma_gold:.2f}", f"{percent_gold:.2f}%"])
 
-        # Aktuelle Zeit hinzufügen
-        current_time = time.strftime("%H:%M:%S", time.localtime())
-
         return render_template('index.html',
                             df_3x=df_3x.to_html(classes="table table-bordered", index=False),
                             df_3x_unlevered=df_3x_unlevered.to_html(classes="table table-bordered", index=False),
@@ -325,7 +320,7 @@ def index():
                             data_letsgo=data_letsgo,
                             result=result,
                             username=session['user'],
-                            update_time=current_time)
+                            
     except Exception as e:
         # Fehlerbehandlung für die Hauptseite
         print(f"Fehler in index route: {str(e)}")
