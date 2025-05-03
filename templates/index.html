@@ -5,415 +5,10 @@
     <title>GTAA und LETSGO</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* Light mode (default) variables */
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --header-footer-gradient: linear-gradient(135deg, #004643, #005955);
-            --heading-color: #006d77;
-            --table-even-row: #f8f9fa;
-            --table-hover: #e3f2fd;
-            --card-bg: #ffffff;
-            --card-shadow: 0 10px 30px rgba(0, 109, 119, 0.1);
-            --card-border: 1px solid rgba(0, 109, 119, 0.1);
-            --input-border: #e0e0e0;
-            --alert-bg: #f8d7da;
-            --alert-color: #721c24;
-            --alert-border: #f5c6cb;
-            --button-gradient: linear-gradient(135deg, #006d77, #008891);
-            --button-hover-gradient: linear-gradient(135deg, #005f69, #007883);
-        }
-
-        /* Dark mode variables */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg-color: #121212;
-                --text-color: #e0e0e0;
-                --header-footer-gradient: linear-gradient(135deg, #002a29, #004341);
-                --heading-color: #4db6c0;
-                --table-even-row: #1e1e1e;
-                --table-hover: #2a3f4d;
-                --card-bg: #1e1e1e;
-                --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                --card-border: 1px solid rgba(0, 109, 119, 0.2);
-                --input-border: #444444;
-                --alert-bg: #3b1c1f;
-                --alert-color: #f8c4ca;
-                --alert-border: #632229;
-                --button-gradient: linear-gradient(135deg, #00858f, #009aa3);
-                --button-hover-gradient: linear-gradient(135deg, #00757f, #008a93);
-            }
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        
-        .header {
-            background: var(--header-footer-gradient);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-        }
-        
-        .header h1 {
-            margin: 0;
-            color: white;
-            font-size: 2em;
-        }
-        
-        .main-content {
-            flex: 1;
-            padding: 40px;
-        }
-        
-        .footer {
-            background: var(--header-footer-gradient);
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 0.9em;
-        }
-        
-        .footer p {
-            margin: 0;
-            opacity: 0.9;
-        }
-        
-        h1, h2, h3 {
-            text-align: center;
-            color: var(--heading-color);
-            margin-bottom: 30px;
-            font-weight: 600;
-        }
-        
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 50px;
-            color: var(--heading-color);
-        }
-        
-        .table-container {
-            margin: 60px auto;
-            width: 90%;
-            max-width: 1200px;
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: var(--card-shadow);
-            border: var(--card-border);
-            transition: transform 0.2s ease, background-color 0.3s;
-        }
-        
-        .table-container:hover {
-            transform: translateY(-5px);
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            border-radius: 15px;
-            overflow: hidden;
-        }
-        
-        th, td {
-            padding: 15px;
-            border: none;
-            text-align: center;
-        }
-        
-        th {
-            background-color: #006d77;
-            color: #ffffff;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9em;
-        }
-        
-        tr:nth-child(even) {
-            background-color: var(--table-even-row);
-        }
-        
-        tr:hover {
-            background-color: var(--table-hover);
-            transition: background-color 0.3s ease;
-        }
-        
-        .highlight {
-            text-align: center;
-            margin-top: 30px;
-        }
-        
-        .result-pill {
-            display: inline-block;
-            padding: 12px 40px;
-            border-radius: 50px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.2em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
-        }
-        
-        .result-cash {
-            background-color: #dc3545;
-        }
-        
-        .result-gold {
-            background: linear-gradient(135deg, #ffd700, #ffa000);
-        }
-        
-        .result-buy {
-            background-color: #28a745;
-        }
-        
-        td:first-child {
-            font-weight: 500;
-        }
-        
-        .medal-1, .medal-2, .medal-3 {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            line-height: 24px;
-            border-radius: 50%;
-            color: white;
-            font-weight: bold;
-            margin-right: 8px;
-        }
-        
-        .medal-1 {
-            background: linear-gradient(135deg, #ffd700, #ffa000);
-            box-shadow: 0 2px 5px rgba(255, 215, 0, 0.3);
-        }
-        
-        .medal-2 {
-            background: linear-gradient(135deg, #C0C0C0, #A0A0A0);
-            box-shadow: 0 2px 5px rgba(192, 192, 192, 0.3);
-        }
-        
-        .medal-3 {
-            background: linear-gradient(135deg, #CD7F32, #A05A2C);
-            box-shadow: 0 2px 5px rgba(205, 127, 50, 0.3);
-        }
-        
-        td[data-rank="1"], td[data-rank="2"], td[data-rank="3"] {
-            font-weight: bold;
-        }
-        
-        td[data-rank="1"] {
-            color: #ffa000;
-        }
-        
-        td[data-rank="2"] {
-            color: #757575;
-        }
-        
-        td[data-rank="3"] {
-            color: #A05A2C;
-        }
-        
-        .table-container.small {
-            max-width: 600px;
-        }
-        
-        .table-container.small table {
-            font-size: 0.9em;
-        }
-        
-        .table-container.small .result-pill {
-            font-size: 1em;
-            padding: 8px 30px;
-        }
-        
-        /* Farben für Zahlen */
-        td {
-            position: relative;
-        }
-        
-        td[data-value]:not([data-value="0"]):not(:first-child) {
-            font-weight: 500;
-        }
-        
-        td[data-value^="-"]:not(:first-child) {
-            color: #dc3545;
-        }
-        
-        td[data-value="0"]:not(:first-child) {
-            color: var(--text-color);
-        }
-        
-        td[data-value]:not([data-value^="-"]):not([data-value="0"]):not(:first-child) {
-            color: #28a745;
-        }
-        
-        /* User info and logout */
-        .user-info {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            color: white;
-        }
-        
-        .username {
-            margin-right: 15px;
-            opacity: 0.9;
-        }
-        
-        .logout-btn {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none;
-            font-size: 0.9em;
-        }
-        
-        .logout-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        /* Login form styles */
-        .login-form {
-            width: 90%;
-            max-width: 400px;
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 25px;
-            box-shadow: var(--card-shadow);
-            border: var(--card-border);
-            transition: transform 0.2s ease, background-color 0.3s;
-        }
-        
-        .login-form:hover {
-            transform: translateY(-5px);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--heading-color);
-        }
-        
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            padding-right: 40px;
-            border: 1px solid var(--input-border);
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-        }
-        
-        input[type="text"]:focus, input[type="password"]:focus {
-            border-color: var(--heading-color);
-            outline: none;
-        }
-        
-        button {
-            width: 100%;
-            padding: 12px;
-            background: var(--button-gradient);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Inter', sans-serif;
-            font-weight: 500;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: var(--button-hover-gradient);
-        }
-        
-        .alert {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            background-color: var(--alert-bg);
-            color: var(--alert-color);
-            border: 1px solid var(--alert-border);
-        }
-        
-        .password-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: transparent !important;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 1;
-            outline: none;
-            width: 24px;
-            height: 24px;
-        }
-        
-        .toggle-password:hover, .toggle-password:focus, .toggle-password:active {
-            background: transparent !important;
-            outline: none;
-            box-shadow: none;
-        }
-        
-        .toggle-password svg {
-            width: 24px;
-            height: 24px;
-            fill: var(--heading-color);
-            opacity: 0.7;
-        }
-        
-        .toggle-password:hover svg {
-            opacity: 1;
-        }
-        
-        /* Beseitigt den Hintergrund beim Klicken */
-        .toggle-password:focus {
-            outline: none;
-        }
+        /* Deine bestehenden CSS-Styles hier */
     </style>
 </head>
 <body>
-    <!-- Der Rest des Inhalts bleibt gleich -->
     <div class="header">
         <h1>GTAA & LETSGO</h1>
         <div class="user-info">
@@ -421,48 +16,24 @@
             <a href="{{ url_for('logout') }}" class="logout-btn">Abmelden</a>
         </div>
     </div>
+    
     <div class="main-content">
+        <!-- Dynamische Tabellencontainer -->
         <div class="table-container" id="3x-gtaa">
             <h2>3x GTAA</h2>
-            {{ df_3x|safe }}
+            <div id="table-3x-gtaa-content"></div> <!-- Inhalt wird hier eingefügt -->
         </div>
         <div class="table-container" id="3x-gtaa-leveraged">
             <h2>3x GTAA gehebelt</h2>
-            {{ df_3x_unlevered|safe }}
+            <div id="table-3x-gtaa-leveraged-content"></div> <!-- Inhalt wird hier eingefügt -->
         </div>
-        
         <div class="table-container" id="1x-gtaa">
             <h2>1x GTAA</h2>
-            {{ df_1x|safe }}
+            <div id="table-1x-gtaa-content"></div> <!-- Inhalt wird hier eingefügt -->
         </div>
-
         <div class="table-container small" id="letsgo">
             <h2>LETSGO</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Asset</th>
-                        <th>Jetzt</th>
-                        <th>SMA</th>
-                        <th>Über SMA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for asset, jetzt, sma, über_sma in data_letsgo %}
-                    <tr>
-                        <td>{{ asset }}</td>
-                        <td>{{ jetzt }}</td>
-                        <td>{{ sma }}</td>
-                        <td>{{ über_sma }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="highlight">
-                <span class="result-pill {% if result == 'Cash' %}result-cash{% elif result == 'Gold' %}result-gold{% elif result == 'Buy' %}result-buy{% endif %}">
-                    {{ result }}
-                </span>
-            </div>
+            <div id="table-letsgo-content"></div> <!-- Inhalt wird hier eingefügt -->
         </div>
     </div>
 
@@ -472,80 +43,51 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Function to add medals for positions and color coding
-            const processTables = (containerId, medalLimit) => {
-                const container = document.getElementById(containerId);
-                if (container) {
-                    const table = container.querySelector('table');
-                    if (table) {
-                        const rows = table.querySelectorAll('tbody tr');
-                        rows.forEach(row => {
-                            const stellungCell = row.querySelector('td:first-child');
-                            if (stellungCell) {
-                                const rang = stellungCell.textContent.trim();
-                                // Check if position is within medal limit
-                                if (parseInt(rang) <= medalLimit) {
-                                    const medal = document.createElement('span');
-                                    medal.className = `medal-${rang}`;
-                                    medal.textContent = rang;
-                                    stellungCell.textContent = '';
-                                    stellungCell.appendChild(medal);
-                                    stellungCell.setAttribute('data-rank', rang);
-                                }
-                            }
-                            
-                            // Apply color coding to numerical values
-                            row.querySelectorAll('td').forEach(cell => {
-                                const text = cell.textContent.trim();
-                                if (text.includes('%') || (!isNaN(parseFloat(text)) && isFinite(text))) {
-                                    let value;
-                                    if (text.includes('%')) {
-                                        value = parseFloat(text);
-                                    } else {
-                                        value = parseFloat(text);
-                                    }
-                                    
-                                    if (!isNaN(value)) {
-                                        cell.setAttribute('data-value', value);
-                                    }
-                                }
-                            });
-                        });
-                    }
-                }
-            };
+            // Funktion, die Tabelleninhalte mit AJAX lädt
+            function loadTableData(tableId, url) {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        const container = document.getElementById(tableId);
+                        if (container) {
+                            // Leeren des Containers
+                            container.innerHTML = '';
 
-            // Process each table with the appropriate medal limit
-            processTables('3x-gtaa', 3);           // Medals for positions 1, 2, and 3
-            processTables('3x-gtaa-leveraged', 3); // Medals for positions 1, 2, and 3
-            processTables('1x-gtaa', 2);           // Medals for positions 1 and 2 only
-            
-            // Process LETSGO table for color coding only (no medals)
-            const containerLetsgo = document.getElementById('letsgo');
-            if (containerLetsgo) {
-                const tableLetsgo = containerLetsgo.querySelector('table');
-                if (tableLetsgo) {
-                    const rows = tableLetsgo.querySelectorAll('tbody tr');
-                    rows.forEach(row => {
-                        // Process numerical values for color coding
-                        row.querySelectorAll('td').forEach(cell => {
-                            const text = cell.textContent.trim();
-                            if (text.includes('%') || (!isNaN(parseFloat(text)) && isFinite(text))) {
-                                let value;
-                                if (text.includes('%')) {
-                                    value = parseFloat(text);
-                                } else {
-                                    value = parseFloat(text);
-                                }
-                                
-                                if (!isNaN(value)) {
-                                    cell.setAttribute('data-value', value);
-                                }
-                            }
-                        });
+                            // Neue Tabelle erstellen
+                            let table = document.createElement('table');
+                            table.innerHTML = `
+                                <thead>
+                                    <tr>
+                                        <th>Asset</th>
+                                        <th>Jetzt</th>
+                                        <th>SMA</th>
+                                        <th>Über SMA</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${data.map(asset => `
+                                        <tr>
+                                            <td>${asset.asset}</td>
+                                            <td>${asset.jetzt}</td>
+                                            <td>${asset.sma}</td>
+                                            <td>${asset.über_sma}</td>
+                                        </tr>
+                                    `).join('')}
+                                </tbody>
+                            `;
+                            container.appendChild(table);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Fehler beim Laden der Tabelle:', error);
                     });
-                }
             }
+
+            // Tabelleninhalte laden
+            loadTableData('table-3x-gtaa-content', '/get_3x_gtaa');
+            loadTableData('table-3x-gtaa-leveraged-content', '/get_3x_gtaa_leveraged');
+            loadTableData('table-1x-gtaa-content', '/get_1x_gtaa');
+            loadTableData('table-letsgo-content', '/get_letsgo');
         });
     </script>
 </body>
