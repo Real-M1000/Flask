@@ -104,13 +104,13 @@ def performance_berechnen(ticker, info_dict):
             return None
             
         # jeweils mit kleiner Pause, damit yfinance nicht dichtmacht
-        time.sleep(0.2)
+       
         performance_9m = berechne_performance(asset.history(period="9mo"))
-        time.sleep(0.2)
+        time.sleep(0.02)
         performance_6m = berechne_performance(asset.history(period="6mo"))
-        time.sleep(0.2)
+        time.sleep(0.02)
         performance_3m = berechne_performance(asset.history(period="3mo"))
-        time.sleep(0.2)
+        time.sleep(0.02)
         performance_1m = berechne_performance(asset.history(period="1mo"))
 
         momentum = (performance_1m + performance_3m + performance_6m + performance_9m) / 4
