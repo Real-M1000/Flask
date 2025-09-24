@@ -17,6 +17,18 @@
 
 
     <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background: transparent; /* transparent, damit der Inhalt durchscheint */
+        }
+
+        body {
+            padding-top: env(safe-area-inset-top); /* für iPhone Notch */
+            background-color: #0000; /* transparent */
+        }
+
         :root {
             /* Light mode (default) variables */
             --bg-color: #ffffff;
