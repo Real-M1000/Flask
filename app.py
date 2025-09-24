@@ -49,15 +49,15 @@ tickers_3x_unlevered = {
 
 tickers_3x = {
     "BTC-USD": ("Bitcoin", "N/A"),
-    "XNAS.MI": ("NASDAQ 100", "IE00BMFKG444"),
-    "EUNM.DE": ("EM", "IE00B4L5YC18"),
-    "CRUD.MI": ("WTI", "GB00B15KXV33"),
-    "SXRM.DE": ("Treasuries 7-10/20+", "IE00B3VWN518"),
-    "EUR=X": ("USD long EUR short", "N/A"),
-    "EURUSD=X": ("USD short EUR long", "N/A"),
+    "QQQM": ("NASDAQ 100", "IE00BMFKG444"),
+    "EEM    ": ("EM", "IE00B4L5YC18"),
+    "CL=F": ("WTI", "GB00B15KXV33"),
+    "IEF": ("Treasuries 7-10/20+", "IE00B3VWN518"),
+    "EURUSD=X": ("USD long EUR short", "N/A"),
+    "EUR=X": ("USD short EUR long", "N/A"),
     "GC=F": ("Gold", "N/A"),
     "XEON.DE": ("Euro-Geldmarkt", "N/A"),
-    "EXW1.DE": ("iShares Core EURO STOXX 50 UCITS ETF (DE)", "DE0005933956"),
+    "FEZ": ("iShares Core EURO STOXX 50 UCITS ETF (DE)", "DE0005933956"),
 }
 
 
