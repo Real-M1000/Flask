@@ -1,6 +1,7 @@
 {
   "name": "GTAA und LETSGO",
   "short_name": "GTAA",
+  "description": "Eine App zur Feststellung der Werte für 1x GTAA, 3x GTAA und Letsgo. ",
   "start_url": "https://gtaa.beyershof.de/login?next=https://gtaa.beyershof.de/",
   "display": "standalone",
   "background_color": "#ffffff",
