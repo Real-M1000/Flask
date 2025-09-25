@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>GTAA und LETSGO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-  <!-- Vollbildmodus aktivieren -->
+
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Dein App-Name">
 
-  <!-- Optional: Name, der auf dem Homescreen angezeigt wird -->
-    <meta name="apple-mobile-web-app-title" content="GTAA">
-
-  <!-- Icon fürs Home-Screen Lesezeichen -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://raw.githubusercontent.com/Real-M1000/Flask/945f21abb08bc3a290f09eef8e680cc6d4193960/ChatGPT%20Image%2024.%20Sept.%202025,%2017_29_53.png">
-
-
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/apple-touch-icon.png') }}">
     <style>
         html, body {
             margin: 0;
