@@ -24,6 +24,20 @@
             padding-top: env(safe-area-inset-top); /* für iPhone Notch */
             background-color: #0000; /* transparent */
         }
+        /* Dies ist der Header deiner App, z.B. die obere Navigationsleiste */
+        .app-header {
+    /* WICHTIG: Deine Wunschfarbe setzen */
+        background-color: #121212; /* Beispiel: Ein klares App-Blau */
+    
+    /* WICHTIG: Den Header oben fixieren */
+        position: fixed; 
+        top: 0;
+        width: 100%;
+        z-index: 1000; /* Stellt sicher, dass er über dem Inhalt liegt */
+        
+    /* Normale Höhe des Headers (ohne Statusleisten-Padding) */
+        height: 50px; 
+    }
 
         :root {
             /* Light mode (default) variables */
