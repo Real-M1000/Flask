@@ -50,7 +50,7 @@ tickers_3x_unlevered = {
 tickers_3x = {
     "BTC-USD": ("Bitcoin", "N/A"),
     "QQQM": ("NASDAQ 100", "IE00BMFKG444"),
-    "EEM": ("EM", "IE00B4L5YC18"),
+    "EIMI.SW": ("EM", "IE00B4L5YC18"),
     "CL=F": ("WTI", "GB00B15KXV33"),
     "IEF": ("Treasuries 7-10/20+", "IE00B3VWN518"),
     "EURUSD=X": ("USD long EUR short", "N/A"),
