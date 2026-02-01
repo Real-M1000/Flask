@@ -54,7 +54,7 @@ tickers_3x = {
     "CRUD.MI": ("ÖL", "GB00B15KXV33"),
     "CSBGU0.SW": ("US Treas", "IE00B3VWN518"),
     "EUUS.MI": ("$ long", "JE00BMM1XC77 "),
-    "EGLN.L": ("Gold", "IE00B8HGT870"),
+    "4GLD.DE": ("Gold", "IE00B8HGT870"),
     "XEON.DE": ("Cash", "LU0290358497"),
     "EXW1.DE": ("€ 50", "IE00B7SD4R47"),
     "IUST.DE": ("TIPS Filter", "N/A"),
