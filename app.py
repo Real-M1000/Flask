@@ -22,42 +22,42 @@ cache_time = {}
 CACHE_TIMEOUT = 60  # Sekunden
 
 tickers_1x = {
-    "XNAS.DE": ("Xtrackers Nasdaq 100 UCITS ETF 1C", "IE00BMFKG444"),
-    "AW1T.DE": ("UBS ETF (LU) MSCI EMU Value UCITS ETF (EUR) A-acc", "LU0950669845"),
-    "SPYX.DE": ("SPDR MSCI Emerging Markets Small Cap UCITS ETF", "IE00B48X4842"),
-    "UEQU.DE": ("UBS ETF (IE) CMCI ex-Agriculture SF UCITS ETF (USD) A-acc", "IE00BZ2GV965"),
-    "SXRM.DE": ("iShares USD Treasury Bond 7-10yr UCITS ETF (Acc)", "IE00B3VWN518"),
-    "B8TC.DE": ("Amundi USD Fed Funds Rate UCITS ETF Acc", "LU1233598447"),
-    "4GLD.DE": ("Xetra-Gold", "DE000A0S9GB0"),
-    "XEON.DE": ("Euro-Geldmarkt", "LU0290358497")
-}
+    "SXRV.DE": ("QQQ", "IE00BMFKG444"),
+    "AW1T.DE": ("EU", "LU0950669845"),
+    "SPYX.DE": ("EM", "IE00B48X4842"),
+    "UEQU.DE": ("Commo", "IE00BZ2GV965"),
+    "CSBGU0.SW": ("US Treas", "IE00B3VWN518"),
+    "4GLD.DE": ("Gold", "DE000A0S9GB0"),
+    "XEON.DE": ("Cash", "LU0290358497"),
+    "XFFE.DE": ("$ long", "LU0321465469"),
+} 
 
 
 tickers_3x_unlevered = {
-    "VBTC.DE": ("VanEck Bitcoin ETN (1x)", "DE000A28M8D0"),
-    "QQQ3.MI": ("WisdomTree NASDAQ 100 3x Daily Leveraged(3x)", "IE00BLRPRL42"),
-    "3EML.MI": ("WisdomTree Emerging Markets 3x Daily Leveraged(3x)", "IE00BYTYHN28"),
-    "LOIL.MI": ("WisdomTree WTI Crude Oil 2x Daily Leveraged", "JE00BDD9Q840"),
-    "TLT5.DE": ("Leverage Shares PLC E (Treasuries 7-10/20+ (5x))", "XS2595672036"),
-    "EUS5.MI": ("USD long EUR short (5x)", "JE00BMM1XC77"),
-    "3GLD.DE": ("Gold (3x)", "IE00B8HGT870"),
-    "XEON.DE": ("Euro-Geldmarkt (1x)", "LU0290358497"),
-    "3EUL.MI": ("Euro Stoxx 50 (3x)", "IE00B7SD4R47"),
-    "USE5.MI": ("WisdomTree Short USD Long EUR 5x Daily", "JE00BMM1XD84")
+    "VBTC.DE": ("BTC", "DE000A28M8D0"),
+    "QQQ3.MI": ("QQQ", "IE00BLRPRL42"),
+    "3EML.MI": ("EM", "IE00BYTYHN28"),
+    "LOIL.MI": ("ÖL", "JE00BDD9Q840"),
+    "TLT5.DE": ("US Treas", "XS2595672036"),
+    "EUS5.MI": ("$ long", "JE00BMM1XC77"),
+    "3GLD.DE": ("Gold", "IE00B8HGT870"),
+    "XEON.DE": ("Cash", "LU0290358497"),
+    "3EUL.MI": ("EU", "IE00B7SD4R47"),
+    "USE5.MI": ("$ short", "JE00BMM1XD84"),
 }
 
 
 tickers_3x = {
-    "BTC-USD": ("Bitcoin", "N/A"),
-    "QQQM": ("NASDAQ 100", "IE00BMFKG444"),
-    "EIMI.SW": ("EM", "IE00B4L5YC18"),
-    "CL=F": ("WTI", "GB00B15KXV33"),
-    "IEF": ("Treasuries 7-10/20+", "IE00B3VWN518"),
-    "EURUSD=X": ("USD long EUR short", "N/A"),
-    "EUR=X": ("USD short EUR long", "N/A"),
-    "GC=F": ("Gold", "N/A"),
-    "XEON.DE": ("Euro-Geldmarkt", "N/A"),
-    "FEZ": ("iShares Core EURO STOXX 50 UCITS ETF (DE)", "DE0005933956"),
+    "BTC-EUR": ("BTC", "GB00BLD4ZL17"),
+    "SXRV.DE": ("QQQ", "IE00BMFKG444"),
+    "EUNM.DE": ("EM", "IE00B4L5YC18"),
+    "CRUD.MI": ("ÖL", "GB00B15KXV33"),
+    "CSBGU0.SW": ("US Treas", "IE00B3VWN518"),
+    "EUUS.MI": ("$ long", "JE00BMM1XC77 "),
+    "EGLN.L": ("Gold", "IE00B8HGT870"),
+    "XEON.DE": ("Cash", "LU0290358497"),
+    "EXW1.DE": ("€ 50", "IE00B7SD4R47"),
+    "IUST.DE": ("TIPS Filter", "N/A"),
 }
 
 
