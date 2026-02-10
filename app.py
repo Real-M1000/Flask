@@ -56,7 +56,7 @@ tickers_3x = {
     "EUUS.MI": ("$ long", "JE00BMM1XC77 "),
     "4GLD.DE": ("Gold", "IE00B8HGT870"),
     "XEON.DE": ("Cash", "LU0290358497"),
-    "EXW1.DE": ("€ 50", "IE00B7SD4R47"),
+    "EXW1.DE": ("EU 50", "IE00B7SD4R47"),
     "IUST.DE": ("TIPS Filter", "N/A"),
 }
 
