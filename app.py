@@ -212,17 +212,17 @@ def calculate_sma(ticker, period=175):
 @login_required
 def refresh_data():
     try:
-        # Cache leeren, um frische Daten zu erzwingen
+
         global cached_data, cache_time
         cached_data = {}
         cache_time = {}
         
-        # Dataframes berechnen
+
         df_3x = berechne_dataframe(tickers_3x)
         df_3x_unlevered = berechne_dataframe(tickers_3x_unlevered)
         df_1x = berechne_dataframe(tickers_1x)
 
-        # LETSGO Indikator
+        
         tickersap = "^GSPC"
         tickertip = "TIP"
         tickergold = "GC=F"
@@ -298,7 +298,7 @@ def index():
         sma_gold, current_gold, percent_gold = calculate_sma(tickergold)
 
         if sma_sap is None or sma_tip is None or sma_gold is None:
-            result = "Daten nicht verfügbar"
+            result = """"Der Gerät kaputt. Der Gerät arbeitetet schweißfrei.""""
         else:
             if current_sap <= sma_sap or current_tip <= sma_tip:
                 result = "Gold" if current_gold > sma_gold else "Cash"
